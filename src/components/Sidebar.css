@@ -1,0 +1,226 @@
+.sidebar {
+  width: 260px;
+  background-color: #0d1b2a;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(0, 217, 255, 0.1);
+  flex-shrink: 0;
+  transition: all 0.3s ease; /* Animação de abrir/fechar */
+}
+
+/* NOVIDADE: Estilo para quando a barra estiver fechada */
+.sidebar.closed {
+  width: 0;
+  padding: 1rem 0;
+  overflow: hidden;
+}
+
+.sidebar-header {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem; /* Adicionado padding */
+}
+
+.new-chat-button {
+  background-color: transparent;
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  color: #e0e1dd;
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-grow: 1; /* Para ocupar o espaço */
+}
+
+.new-chat-button:hover {
+  background-color: rgba(0, 217, 255, 0.1);
+  border-color: #00d9ff;
+}
+
+/* NOVIDADE: Botão de fechar agora é sempre visível */
+.close-sidebar-button {
+  background: none;
+  border: none;
+  color: #778da9;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 99px;
+  margin-left: 0.5rem; /* Espaçamento */
+}
+
+.close-sidebar-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.conversation-history {
+  overflow-y: auto; /* Permite rolar o histórico */
+}
+
+.conversation-history .history-title {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #778da9;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.conversation-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.conversation-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.5rem;
+  border-radius: 0.5rem;
+  color: #e0e1dd;
+  text-decoration: none;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.2s ease;
+}
+
+.conversation-link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.conversation-link.active {
+  background-color: rgba(0, 217, 255, 0.1);
+}
+
+.conversation-link svg {
+  flex-shrink: 0;
+  color: #778da9;
+}
+
+.loading-text {
+  color: #778da9;
+  padding: 0 0.5rem;
+}
+
+.loading-icon {
+  animation: spin 1s linear infinite;
+  color: #00d9ff;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 
+.conversation-link {
+  position: relative; /* Necessário para o posicionamento do botão de deletar */
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #778da9;
+  cursor: pointer;
+  padding: 0.3rem;
+  border-radius: 0.25rem;
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0; /* Começa invisível */
+  transition: all 0.2s ease;
+}
+.conversation-link:hover .delete-button {
+  opacity: 1; /* Aparece quando o mouse passa por cima */
+}
+
+.delete-button:hover {
+  background-color: rgba(255, 82, 82, 0.2);
+  color: #ff5252;
+}
+/* --- Estilos para a Barra de Pesquisa --- */
+.search-bar {
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 0 0.5rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #778da9;
+  pointer-events: none; /* Impede que o ícone bloqueie o clique no input */
+}
+
+.search-input {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 0.5rem;
+  padding: 0.6rem 0.75rem 0.6rem 2.5rem; /* Espaço para o ícone */
+  color: #e0e1dd;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #778da9;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00d9ff;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1);
+}
+
+/* --- Estilos para o Rodapé da Sidebar e Botão de Upgrade --- */
+.sidebar {
+    justify-content: space-between; /* Empurra o rodapé para baixo */
+}
+
+.sidebar-footer {
+  padding: 0 0.5rem 0.5rem 0.5rem; /* Espaçamento na parte de baixo */
+}
+
+.upgrade-button {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  background: linear-gradient(135deg, #b84fff 0%, #8f00ff 100%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upgrade-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(184, 79, 255, 0.4);
+}
+
+.upgrade-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

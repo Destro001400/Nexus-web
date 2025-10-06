@@ -1,0 +1,29 @@
+/* Reset universal e a regra de ouro do box-sizing.
+  Isso garante que padding e bordas não "empurrem" o layout para fora.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+  Aqui está a segunda parte da mágica: a gente diz para o corpo da página
+  nunca, em hipótese alguma, criar uma barra de rolagem horizontal.
+*/
+html, body {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #0a1628;
+  color: #e0e1dd;
+}
+
+#root {
+  width: 100%;
+  height: 100vh;
+}
