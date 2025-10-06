@@ -8,8 +8,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { coldarkDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './Chat.css';
 import { categorizeConversation } from '../lib/categorizer.js';
-// NOVIDADE: Importando a lógica do nosso novo arquivo!
-import { checkMessageLimit } from '../lib/limit.js'; 
+import { checkMessageLimit } from '../lib/limit.js';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 const models = {
@@ -54,37 +53,79 @@ export default function Chat({ session, conversationId, onConversationCreated, o
 
     useEffect(() => {
         const setupChat = async () => {
+            setMessages([]);
             let initialMessages = [];
             let modelForConversation = 'flash';
+
             if (conversationId) {
                 setIsLoading(true);
-                const { data } = await supabase.from('conversations').select('messages, model').eq('id', conversationId).single();
+                const { data, error } = await supabase
+                    .from('conversations')
+                    .select('messages, model')
+                    .eq('id', conversationId)
+                    .single();
+
+                setIsLoading(false);
+
+                if (error) {
+                    console.error("Erro ao buscar histórico da conversa:", error);
+                    alert("Não foi possível carregar as mensagens. Verifique o console para mais detalhes.");
+                    const emptyChat = models.flash.startChat({ history: [] });
+                    setChat(emptyChat);
+                    return;
+                }
+
                 if (data) {
                     initialMessages = data.messages || [];
                     modelForConversation = data.model || 'flash';
                 }
-                setIsLoading(false);
             }
+            
             setMessages(initialMessages);
             setConversationModel(modelForConversation);
             const activeModel = models[modelForConversation] || models.flash;
-            const newChat = activeModel.startChat({ history: initialMessages.map(msg => ({ role: msg.role === 'user' ? 'user' : 'model', parts: [{ text: msg.content }] })) });
+            const newChat = activeModel.startChat({ 
+                history: initialMessages.map(msg => ({ 
+                    role: msg.role === 'user' ? 'user' : 'model', 
+                    parts: [{ text: msg.content }] 
+                })) 
+            });
             setChat(newChat);
         };
+
         setupChat();
     }, [conversationId]);
+
 
     useEffect(() => { messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }) }, [messages]);
 
     const saveConversation = async (updatedMessages, currentConvoId, modelToSave) => {
         let dataToSave = { messages: updatedMessages, updated_at: new Date() };
+        
         if (currentConvoId) {
             await supabase.from('conversations').update(dataToSave).eq('id', currentConvoId);
         } else {
             dataToSave.model = modelToSave;
             const title = await generateTitle(updatedMessages);
             dataToSave.title = title;
-            const { data } = await supabase.from('conversations').insert({ ...dataToSave, user_id: session.user.id }).select('id').single();
+
+            // ##### CÓDIGO CORRIGIDO ABAIXO #####
+            // A API do Supabase espera um array para a inserção de dados.
+            // Envolvemos o nosso objeto num array [ ... ] para corrigir o erro 400.
+            const { data, error } = await supabase
+                .from('conversations')
+                .insert([{ ...dataToSave, user_id: session.user.id }])
+                .select('id')
+                .single();
+            
+            // Se a inserção falhar, mostramos um erro.
+            if (error) {
+                console.error("Erro ao salvar nova conversa:", error);
+                alert("Ocorreu um erro ao criar a nova conversa.");
+                return;
+            }
+            // ##### FIM DO CÓDIGO CORRIGIDO #####
+
             if (data) onConversationCreated(data.id);
         }
     };
