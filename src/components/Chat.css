@@ -25,10 +25,8 @@
 .message { display: flex; animation: slideIn 0.3s ease-out; }
 @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 .user-message { justify-content: flex-end; }
-.bot-message { justify-content: flex-start; }
 .message-content { max-width: 85%; padding: 1rem 1.25rem; border-radius: 1rem; line-height: 1.6; word-wrap: break-word; }
 .user-message .message-content { background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%); color: #0a1628; font-weight: 500; border-bottom-right-radius: 0.25rem; }
-.bot-message .message-content { background: rgba(184, 79, 255, 0.1); border: 1px solid rgba(184, 79, 255, 0.3); color: #e0e1dd; border-bottom-left-radius: 0.25rem; }
 .loading { display: flex; align-items: center; gap: 0.5rem; color: #00d9ff; }
 .spinner { animation: spin 1s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
@@ -180,4 +178,185 @@
   color: #e0e1dd;
   box-shadow: inset 0 0 10px rgba(0, 217, 255, 0.2); /* Sombra interna para dar profundidade */
   border: 1px solid rgba(0, 217, 255, 0.5); /* Borda mais visível */
+}
+/* --- Estilos para os Botões de Seleção de Modelo --- */
+
+/* O container dos botões */
+.model-selector {
+  display: flex;
+  gap: 1rem;
+  background-color: rgba(0,0,0,0.2);
+  padding: 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  margin-bottom: 2rem; /* Adiciona espaço entre os botões e o ícone/título */
+}
+
+/* Estilo base para ambos os botões */
+.model-button {
+  background-color: transparent;
+  border: 1px solid rgba(119, 141, 169, 0.4);
+  color: #778da9;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Efeito ao passar o mouse por cima */
+.model-button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #e0e1dd;
+  border-color: rgba(0, 217, 255, 0.5);
+}
+
+/* Estilo do botão ATIVO */
+.model-button.active {
+  background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(184, 79, 255, 0.15) 100%);
+  color: #e0e1dd;
+  font-weight: 600;
+  border-color: rgba(0, 217, 255, 0.6);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+}
+
+/* Cores dos ícones */
+.model-button span {
+  transition: color 0.3s ease;
+}
+.model-button svg {
+  color: #778da9;
+  transition: all 0.3s ease;
+}
+.model-button:hover:not(:disabled) svg, .model-button.active svg {
+  color: #00d9ff;
+}
+.model-button.active svg {
+  filter: drop-shadow(0 0 5px rgba(0, 217, 255, 0.7));
+}
+
+/* Estilo para o botão desativado (Pro) */
+.model-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tag "PRO" */
+.pro-tag {
+  background: linear-gradient(135deg, #b84fff 0%, #8f00ff 100%);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+}
+/* --- Estilos para as Sugestões de Início --- */
+.welcome-title {
+    margin-bottom: 2rem; /* Adiciona mais espaço abaixo do título principal */
+}
+
+.suggestions-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Cria duas colunas */
+    gap: 1rem;
+    width: 100%;
+    max-width: 700px; /* Limita a largura máxima da grade */
+    margin-top: 1.5rem;
+}
+
+.suggestion-card {
+    background-color: rgba(0, 217, 255, 0.05);
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #a9b8cc;
+}
+
+.suggestion-card:hover {
+    background-color: rgba(0, 217, 255, 0.1);
+    border-color: #00d9ff;
+    color: #e0e1dd;
+}
+
+.suggestion-card svg {
+    color: #778da9;
+    flex-shrink: 0; /* Impede que o ícone seja esmagado */
+    transition: color 0.3s ease;
+}
+
+.suggestion-card:hover svg {
+    color: #00d9ff;
+}
+/* --- NOVOS ESTILOS PARA MENSAGEM DO BOT --- */
+
+.bot-message {
+  justify-content: flex-start;
+  /* NOVO: Usamos flexbox para alinhar o avatar e o conteúdo */
+  display: flex;
+  gap: 1rem; 
+  /* Removemos o max-width daqui para que o conteúdo possa se expandir */
+}
+
+.bot-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(184, 79, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Impede que o avatar encolha */
+  margin-top: 0.5rem;
+}
+
+.bot-avatar svg {
+  color: #b84fff;
+  width: 20px;
+  height: 20px;
+}
+
+/* Removemos completamente o estilo de "balão" do conteúdo do bot */
+.bot-message .message-content {
+  max-width: 100%; /* Ocupa o espaço disponível */
+  padding: 0; /* Removemos o padding do balão antigo */
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: #e0e1dd;
+}
+
+/* NOVO: Estilos para tabelas dentro das mensagens */
+.message-content table {
+  width: auto; /* A tabela terá a largura do seu conteúdo */
+  max-width: 100%; /* Mas não pode ultrapassar o contentor */
+  display: block;
+  overflow-x: auto; /* A MÁGICA: Adiciona scroll horizontal se a tabela for muito larga */
+  border-collapse: collapse;
+  margin: 1rem 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.message-content th, .message-content td {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.message-content th {
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: 600;
 }

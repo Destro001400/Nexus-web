@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
-import { Plus, MessageSquare, Trash2, X, Search, Star, Crown } from 'lucide-react';
+import { Plus, Trash2, X, Search, Star, Crown } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
+import CategoryIcon from './CategoryIcon'; // Importa o nosso novo componente de ícone
 import './Sidebar.css';
 
 export default function Sidebar({ isOpen, onClose, conversations, activeConversationId, onSelectConversation, onDeleteConversation, isProUser }) {
@@ -15,22 +16,32 @@ export default function Sidebar({ isOpen, onClose, conversations, activeConversa
 
   const handleDelete = (e, conversationId) => {
       e.stopPropagation();
-      onDeleteConversation(conversationId);
+      if (window.confirm("Tem a certeza de que quer apagar esta conversa?")) {
+          onDeleteConversation(conversationId);
+      }
   };
 
+  // Esta é a função que vamos alterar para o Apoia.se depois
   const handleUpgrade = async () => {
       setLoadingUpgrade(true);
       try {
           const { data: { session } } = await supabase.auth.getSession();
           if (!session || !session.user) throw new Error("Você não está logado.");
+          
           const { data, error } = await supabase.functions.invoke('create-checkout-session', {
               method: 'POST',
               body: { email: session.user.email } 
           });
-          if (error) throw error;
+
+          if (error) {
+            const errorMessage = await error.context.json();
+            console.error("Erro da função Supabase:", errorMessage);
+            throw new Error(errorMessage.error || "Não foi possível iniciar o checkout.");
+          }
+          
           window.location.href = data.url;
       } catch (error) {
-          alert("Erro: " + error.message);
+          alert("Erro ao criar a sessão de pagamento: " + error.message);
       } finally {
           setLoadingUpgrade(false);
       }
@@ -53,7 +64,8 @@ export default function Sidebar({ isOpen, onClose, conversations, activeConversa
                       {filteredConversations.map((convo) => (
                           <li key={convo.id}>
                               <a href="#" className={`conversation-link ${convo.id === activeConversationId ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); onSelectConversation(convo.id); }}>
-                                  <MessageSquare size={16} />
+                                  {/* AQUI ESTÁ A ALTERAÇÃO: Usamos o CategoryIcon */}
+                                  <CategoryIcon category={convo.category} size={16} />
                                   <span>{convo.title || `Conversa de ${new Date(convo.created_at).toLocaleDateString()}`}</span>
                                   <button className="delete-button" onClick={(e) => handleDelete(e, convo.id)}><Trash2 size={14} /></button>
                               </a>

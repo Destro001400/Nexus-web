@@ -73,7 +73,7 @@ const MainAppLayout = ({ session }) => {
             fetchUserProfile();
             const { data } = await supabase
                 .from('conversations')
-                .select('id, created_at, title')
+                .select('id, created_at, title, category, model')
                 .eq('user_id', session.user.id)
                 .order('created_at', { ascending: false });
             if (data) setConversations(data);
