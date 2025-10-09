@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Toaster, toast } from 'react-hot-toast';
 import { supabase } from './lib/supabaseClient';
 import LandingPage from './pages/LandingPage';
 import Auth from './components/Auth';
@@ -38,6 +39,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <Toaster />
       <Routes>
         <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
         <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
@@ -54,6 +56,7 @@ const MainAppLayout = ({ session }) => {
     const [activeConversationId, setActiveConversationId] = useState(null);
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [conversations, setConversations] = useState([]);
+    const [conversationsLoading, setConversationsLoading] = useState(true);
     const [userProfile, setUserProfile] = useState(null);
     const location = useLocation();
 
@@ -70,6 +73,7 @@ const MainAppLayout = ({ session }) => {
 
         // 1. Busca os dados iniciais (perfil e conversas)
         const fetchInitialData = async () => {
+            setConversationsLoading(true);
             fetchUserProfile();
             const { data } = await supabase
                 .from('conversations')
@@ -77,6 +81,7 @@ const MainAppLayout = ({ session }) => {
                 .eq('user_id', session.user.id)
                 .order('created_at', { ascending: false });
             if (data) setConversations(data);
+            setConversationsLoading(false);
         };
         fetchInitialData();
 
@@ -105,7 +110,7 @@ const MainAppLayout = ({ session }) => {
         const searchParams = new URLSearchParams(location.search);
         if (searchParams.get('payment_success') === 'true') {
           await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
-          alert("Obrigado por assinar o Nexus Pro! Bem-vindo(a) à elite. ✨");
+          toast.success("Obrigado por assinar o Nexus Pro! Bem-vindo(a) à elite. ✨");
           fetchUserProfile(); // Atualiza o perfil depois do pagamento
           window.history.replaceState(null, '', '/chat');
         }
@@ -132,6 +137,7 @@ const MainAppLayout = ({ session }) => {
                 isOpen={isSidebarOpen}
                 onClose={() => setSidebarOpen(false)}
                 conversations={conversations}
+                conversationsLoading={conversationsLoading}
                 activeConversationId={activeConversationId}
                 onSelectConversation={setActiveConversationId}
                 onDeleteConversation={handleDeleteConversation}

@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react';
-import { Plus, Trash2, X, Search, Star, Crown } from 'lucide-react';
+import { toast } from 'react-hot-toast';
+import { Plus, Trash2, X, Search, Star, Crown, Loader } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import CategoryIcon from './CategoryIcon'; // Importa o nosso novo componente de ícone
 import './Sidebar.css';
 
-export default function Sidebar({ isOpen, onClose, conversations, activeConversationId, onSelectConversation, onDeleteConversation, isProUser }) {
+export default function Sidebar({ isOpen, onClose, conversations, conversationsLoading, activeConversationId, onSelectConversation, onDeleteConversation, isProUser }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [loadingUpgrade, setLoadingUpgrade] = useState(false);
 
@@ -41,7 +42,7 @@ export default function Sidebar({ isOpen, onClose, conversations, activeConversa
           
           window.location.href = data.url;
       } catch (error) {
-          alert("Erro ao criar a sessão de pagamento: " + error.message);
+          toast.error("Erro ao criar a sessão de pagamento: " + error.message);
       } finally {
           setLoadingUpgrade(false);
       }
@@ -49,7 +50,7 @@ export default function Sidebar({ isOpen, onClose, conversations, activeConversa
 
   return (
       <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
-          <div>
+          <div className="sidebar-content">
               <div className="sidebar-header">
                   <button className="new-chat-button" onClick={() => onSelectConversation(null)}><Plus size={18} /> Nova Conversa</button>
                   <button className="close-sidebar-button" onClick={onClose}><X size={20} /></button>
@@ -60,18 +61,25 @@ export default function Sidebar({ isOpen, onClose, conversations, activeConversa
               </div>
               <nav className="conversation-history">
                   <p className="history-title">Histórico</p>
-                  <ul>
-                      {filteredConversations.map((convo) => (
-                          <li key={convo.id}>
-                              <a href="#" className={`conversation-link ${convo.id === activeConversationId ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); onSelectConversation(convo.id); }}>
-                                  {/* AQUI ESTÁ A ALTERAÇÃO: Usamos o CategoryIcon */}
-                                  <CategoryIcon category={convo.category} size={16} />
-                                  <span>{convo.title || `Conversa de ${new Date(convo.created_at).toLocaleDateString()}`}</span>
-                                  <button className="delete-button" onClick={(e) => handleDelete(e, convo.id)}><Trash2 size={14} /></button>
-                              </a>
-                          </li>
-                      ))}
-                  </ul>
+                  {conversationsLoading ? (
+                      <div className="loading-text"><Loader className="loading-icon" size={18} /> Carregando...</div>
+                  ) : (
+                      <ul>
+                          {filteredConversations.length === 0 ? (
+                              <li className="empty-state">Comece uma nova conversa para ver seu histórico.</li>
+                          ) : (
+                              filteredConversations.map((convo) => (
+                                  <li key={convo.id}>
+                                      <a href="#" className={`conversation-link ${convo.id === activeConversationId ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); onSelectConversation(convo.id); }}>
+                                          <CategoryIcon category={convo.category} size={16} />
+                                          <span>{convo.title || `Conversa de ${new Date(convo.created_at).toLocaleDateString()}`}</span>
+                                          <button className="delete-button" onClick={(e) => handleDelete(e, convo.id)}><Trash2 size={14} /></button>
+                                      </a>
+                                  </li>
+                              ))
+                          )}
+                      </ul>
+                  )}
               </nav>
           </div>
           <div className="sidebar-footer">

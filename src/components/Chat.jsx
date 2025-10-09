@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { toast } from 'react-hot-toast';
 import { Send, Sparkles, Loader2, LogOut, Menu, Copy, Check, Square, Zap, Gem, FileText, Music, Code, Globe } from 'lucide-react';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { supabase } from '../lib/supabaseClient';
@@ -68,7 +69,7 @@ export default function Chat({ session, conversationId, onConversationCreated, o
             setIsLoading(false);
             if (error) {
                 console.error("Erro ao buscar histórico da conversa:", error);
-                alert("Não foi possível carregar as mensagens.");
+                toast.error("Não foi possível carregar as mensagens.");
                 return;
             }
             setMessages(data?.messages || []);
@@ -183,7 +184,7 @@ export default function Chat({ session, conversationId, onConversationCreated, o
     
         } catch (error) {
             console.error('Erro no handleSend:', error);
-            alert(`Ocorreu um erro: ${error.message}`);
+            toast.error(`Ocorreu um erro: ${error.message}`);
             setMessages(messages);
         } finally {
             setIsLoading(false);

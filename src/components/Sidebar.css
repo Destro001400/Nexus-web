@@ -62,7 +62,15 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
 .conversation-history {
+  flex-grow: 1;
   overflow-y: auto; /* Permite rolar o histórico */
 }
 
@@ -81,6 +89,13 @@
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+}
+
+.empty-state {
+  text-align: center;
+  color: #778da9;
+  padding: 2rem;
+  font-size: 0.9rem;
 }
 
 .conversation-link {
@@ -190,9 +205,6 @@
 }
 
 /* --- Estilos para o Rodapé da Sidebar e Botão de Upgrade --- */
-.sidebar {
-    justify-content: space-between; /* Empurra o rodapé para baixo */
-}
 
 .sidebar-footer {
   padding: 0 0.5rem 0.5rem 0.5rem; /* Espaçamento na parte de baixo */
