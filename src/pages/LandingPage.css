@@ -1,8 +1,18 @@
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .landing-container {
   background: linear-gradient(135deg, #0a1628 0%, #0d1b2a 50%, #1b263b 100%);
   color: #e0e1dd;
   min-height: 100vh;
   font-family: 'Inter', sans-serif;
+}
+
+.landing-header, .hero-section, .what-is-nexus-section, .features-section, .roadmap-section, .support-section {
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
 }
 
 .landing-header {
@@ -11,26 +21,16 @@
   align-items: center;
   padding: 1.5rem 5%;
   border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+  animation-delay: 0.1s;
 }
 
-.landing-logo {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+.landing-logo .logo-image {
+  height: 40px;
+  transition: transform 0.3s ease;
 }
 
-.landing-logo .logo-icon {
-  color: #00d9ff;
-}
-
-.landing-logo h1 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, #00d9ff 0%, #b84fff 100%);
-  background-clip: text;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.landing-logo .logo-image:hover {
+  transform: scale(1.1);
 }
 
 .landing-button {
@@ -63,6 +63,7 @@
   padding: 6rem 5%;
   max-width: 1200px;
   margin: 0 auto;
+  animation-delay: 0.2s;
 }
 
 .hero-content {
@@ -78,10 +79,9 @@
 
 .hero-title .highlight {
   background: linear-gradient(135deg, #00d9ff 0%, #b84fff 100%);
-  background-clip: text;             /* padrão (solicitado) */
-  -webkit-background-clip: text;     /* WebKit/Blink */
+  background-clip: text;
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* fallback: cor sólida para navegadores sem suporte a background-clip:text */
   color: #00d9ff;
 }
 
@@ -97,17 +97,52 @@
     stroke: #b84fff;
     stroke-width: 0.5;
     filter: drop-shadow(0 0 30px rgba(184, 79, 255, 0.5));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.what-is-nexus-section, .features-section, .roadmap-section, .support-section {
+    padding: 4rem 5%;
+}
+
+.what-is-nexus-section {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+    animation-delay: 0.4s;
 }
 
 .features-section {
-  padding: 4rem 5%;
-  text-align: center;
-  background-color: rgba(0,0,0,0.2);
+    animation-delay: 0.6s;
 }
 
-.features-section h2 {
+.roadmap-section {
+    animation-delay: 0.8s;
+}
+
+.support-section {
+    animation-delay: 1s;
+}
+
+.what-is-nexus-section h2, .features-section h2, .roadmap-section h2, .support-section h2 {
     font-size: 2.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.what-is-nexus-section p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #a9b8cc;
+    margin-bottom: 1.5rem;
+}
+
+.features-section {
+  background-color: rgba(0,0,0,0.2);
 }
 
 .features-grid {
@@ -118,26 +153,84 @@
   margin: 0 auto;
 }
 
-.feature-card {
+.feature-card, .roadmap-act {
   background: rgba(0, 217, 255, 0.05);
   border: 1px solid rgba(0, 217, 255, 0.2);
   padding: 2rem;
   border-radius: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.feature-card svg {
+.feature-card:hover, .roadmap-act:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 217, 255, 0.1);
+}
+
+.feature-card svg, .roadmap-act svg {
     color: #00d9ff;
     margin-bottom: 1rem;
 }
 
-.feature-card h3 {
+.feature-card h3, .roadmap-act h3 {
     font-size: 1.5rem;
     margin-bottom: 0.5rem;
 }
 
-.feature-card p {
+.feature-card p, .roadmap-act p {
     color: #a9b8cc;
     line-height: 1.6;
+}
+
+.feature-card ul {
+    list-style-position: inside;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.roadmap-section > p {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    color: #a9b8cc;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.roadmap-acts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.support-section {
+    text-align: center;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.support-section svg {
+    color: #ff4f81;
+    margin-bottom: 1rem;
+    width: 48px;
+    height: 48px;
+}
+
+.support-section p {
+    color: #a9b8cc;
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.support-section .landing-button {
+    margin-top: 2rem;
+}
+
+.landing-footer {
+  padding: 2rem 5%;
+  text-align: center;
+  border-top: 1px solid rgba(0, 217, 255, 0.1);
+  margin-top: 4rem;
 }
 
 @media (max-width: 768px) {
@@ -145,4 +238,5 @@
     .hero-content { max-width: 100%; }
     .hero-visual { margin-top: 3rem; }
     .features-grid { grid-template-columns: 1fr; }
+    .roadmap-acts { grid-template-columns: 1fr; }
 }

@@ -1,4 +1,4 @@
-import { Code, Music, BrainCircuit, Bot } from 'lucide-react';
+import { Code, Music, BrainCircuit, Bot, Globe } from 'lucide-react';
 import './Personas.css';
 
 export const personas = {
@@ -21,6 +21,11 @@ export const personas = {
     name: 'Criativo',
     icon: <BrainCircuit size={20} />,
     prompt: 'Aja como um especialista em brainstorming e criatividade. Gere ideias inovadoras, pense fora da caixa e ajude a expandir conceitos. Seja imaginativo e encoraje a exploração de novas possibilidades.',
+  },
+  webSearch: {
+    name: 'Pesquisador',
+    icon: <Globe size={20} />, // Precisaremos importar o ícone 'Globe'
+    prompt: 'Você é um assistente de pesquisa. Sua função é responder perguntas usando informações em tempo real da internet que serão fornecidas a você.',
   },
 };
 

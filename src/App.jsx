@@ -39,10 +39,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/app" />} />
-        <Route path="/login" element={!session ? <Auth /> : <Navigate to="/app" />} />
+        <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
+        <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
         <Route element={<ProtectedRoute session={session} />}>
-          <Route path="/app" element={<MainAppLayout session={session} />} />
+          <Route path="/chat" element={<MainAppLayout session={session} />} />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -107,7 +107,7 @@ const MainAppLayout = ({ session }) => {
           await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
           alert("Obrigado por assinar o Nexus Pro! Bem-vindo(a) à elite. ✨");
           fetchUserProfile(); // Atualiza o perfil depois do pagamento
-          window.history.replaceState(null, '', '/app');
+          window.history.replaceState(null, '', '/chat');
         }
       };
       checkPaymentStatus();
