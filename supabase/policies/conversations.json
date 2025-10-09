@@ -1,0 +1,59 @@
+{
+  "policies": [
+    {
+      "name": "Enable read access for authenticated users",
+      "definition": {
+        "auth.uid": {
+          "$eq": "user_id"
+        }
+      }
+    },
+    {
+      "name": "Enable insert for authenticated users only",
+      "definition": {
+        "auth.uid": {
+          "$eq": "user_id"
+        }
+      }
+    },
+    {
+      "name": "Enable update for own conversations only",
+      "definition": {
+        "auth.uid": {
+          "$eq": "user_id"
+        }
+      }
+    },
+    {
+      "name": "Enable delete for own conversations only",
+      "definition": {
+        "auth.uid": {
+          "$eq": "user_id"
+        }
+      }
+    }
+  ],
+  "functions": [
+    {
+      "name": "validate_conversation_data",
+      "language": "sql",
+      "definition": "
+        BEGIN
+          IF NEW.title IS NULL OR length(NEW.title) < 1 THEN
+            RAISE EXCEPTION 'title cannot be empty';
+          END IF;
+          
+          IF NEW.category IS NULL OR length(NEW.category) < 1 THEN
+            RAISE EXCEPTION 'category cannot be empty';
+          END IF;
+          
+          IF NEW.model IS NULL OR length(NEW.model) < 1 THEN
+            RAISE EXCEPTION 'model cannot be empty';
+          END IF;
+          
+          RETURN NEW;
+        END;
+      "
+    }
+  ]
+}

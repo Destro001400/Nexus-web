@@ -6,6 +6,8 @@ import LandingPage from './pages/LandingPage';
 import Auth from './components/Auth';
 import Chat from './components/Chat';
 import Sidebar from './components/Sidebar';
+import ErrorBoundary from './components/ErrorBoundary';
+import LoadingSpinner from './components/LoadingSpinner';
 import './App.css';
 
 // Componente para rotas que precisam de login
@@ -34,25 +36,31 @@ function App() {
   }, []);
 
   if (loading) {
-    return <div className="loading-screen">Carregando Nexus...</div>;
+    return (
+      <div className="loading-screen">
+        <LoadingSpinner size="large" text="Carregando Nexus..." />
+      </div>
+    );
   }
 
   return (
-    <BrowserRouter>
-      <Toaster />
-      <Routes>
-        <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
-        <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
-        <Route element={<ProtectedRoute session={session} />}>
-          <Route path="/chat" element={<MainAppLayout session={session} />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <BrowserRouter>
+        <Toaster />
+        <Routes>
+          <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
+          <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
+          <Route element={<ProtectedRoute session={session} />}>
+            <Route path="/chat" element={<MainAppLayout session={session} />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 
 // Componente que agrupa a lógica do app logado
-const MainAppLayout = ({ session }) => {
+const MainAppLayout = React.memo(({ session }) => {
     const [activeConversationId, setActiveConversationId] = useState(null);
     const [isSidebarOpen, setSidebarOpen] = useState(true);
     const [conversations, setConversations] = useState([]);
@@ -119,7 +127,7 @@ const MainAppLayout = ({ session }) => {
     }, [location, session.user.id, fetchUserProfile]);
 
 
-    const handleDeleteConversation = async (conversationId) => {
+    const handleDeleteConversation = useCallback(async (conversationId) => {
         if (!window.confirm("Tem certeza que quer apagar esta conversa?")) return;
         
         await supabase.from('conversations').delete().eq('id', conversationId);
@@ -129,7 +137,7 @@ const MainAppLayout = ({ session }) => {
             setActiveConversationId(null);
         }
         // Não precisa mais chamar fetchConversations(), o Realtime cuida disso!
-    };
+    }, [activeConversationId]);
 
     return (
         <div className="main-layout">
@@ -157,6 +165,6 @@ const MainAppLayout = ({ session }) => {
             />
         </div>
     );
-}
+});
 
 export default App;

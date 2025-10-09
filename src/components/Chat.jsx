@@ -11,6 +11,10 @@ import './Chat.css';
 import { categorizeConversation } from '../lib/categorizer.js';
 import { checkMessageLimit } from '../lib/limit.js';
 import Personas, { personas } from './Personas';
+import ChatHeader from './ChatHeader';
+import ChatInput from './ChatInput';
+import WelcomeScreen from './WelcomeScreen';
+import MessageList from './MessageList';
 
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY);
 
@@ -35,17 +39,7 @@ const generateTitle = async (messages) => {
     }
 };
 
-const CodeBlock = ({ node, inline, className, children, ...props }) => {
-    const [isCopied, setIsCopied] = useState(false);
-    const match = /language-(\w+)/.exec(className || '');
-    const codeText = String(children).replace(/\n$/, '');
-    const handleCopy = () => {
-        navigator.clipboard.writeText(codeText);
-        setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000);
-    };
-    return !inline && match ? ( <div className="code-block-wrapper"> <SyntaxHighlighter style={coldarkDark} language={match[1]} PreTag="div" {...props}>{codeText}</SyntaxHighlighter> <button className="copy-button" onClick={handleCopy}> {isCopied ? <Check size={16} /> : <Copy size={16} />} {isCopied ? 'Copiado!' : 'Copiar'} </button> </div> ) : ( <code className={className} {...props}>{children}</code> );
-};
+
 
 export default function Chat({ session, conversationId, onConversationCreated, onToggleSidebar, isProUser }) {
     const [messages, setMessages] = useState([]);
@@ -199,13 +193,7 @@ export default function Chat({ session, conversationId, onConversationCreated, o
 
     return (
         <div className="chat-app">
-            <header className="header">
-                <div className="header-content">
-                    <button className="menu-button" onClick={onToggleSidebar}><Menu size={22} /></button>
-                    <div className="logo-section"><Sparkles className="logo-icon" /><h1 className="logo-text">Nexus</h1></div>
-                    <div className="user-section"><span>{session.user.email}</span><button className="logout-button" onClick={() => supabase.auth.signOut()}><LogOut size={18} /> Sair</button></div>
-                </div>
-            </header>
+            <ChatHeader session={session} onToggleSidebar={onToggleSidebar} />
             
             {!conversationId && (
                 <Personas activePersona={activePersona} onSelectPersona={setActivePersona} />
@@ -213,58 +201,32 @@ export default function Chat({ session, conversationId, onConversationCreated, o
             
             <main className="chat-container">
                 {messages.length === 0 && !isLoading ? (
-                  <div className="welcome-screen">
-                    {!conversationId && (
-                        <div className="model-selector">
-                            <button className={`model-button ${selectedModel === 'flash' ? 'active' : ''}`} onClick={() => setSelectedModel('flash')}><Zap size={18} /><span>Nexus Flash</span></button>
-                            <button className={`model-button ${selectedModel === 'pro' ? 'active' : ''}`} onClick={() => setSelectedModel('pro')} disabled={!isProUser}><Gem size={18} /><span>Nexus Pro</span>{!isProUser && <span className="pro-tag">PRO</span>}</button>
-                        </div>
-                    )}
-                    <Sparkles className="welcome-icon" />
-                    <h2 className="welcome-title">Como posso ajudar hoje?</h2>
-                    {!conversationId && (
-                        <div className="suggestions-grid">
-                            {promptSuggestions.map((suggestion, index) => (
-                                <button key={index} className="suggestion-card" onClick={() => handleSuggestionClick(suggestion.text)}>
-                                    {suggestion.icon}
-                                    <span>{suggestion.text}</span>
-                                </button>
-                            ))}
-                        </div>
-                    )}
-                  </div>
+                                    <WelcomeScreen
+                    conversationId={conversationId}
+                    selectedModel={selectedModel}
+                    setSelectedModel={setSelectedModel}
+                    isProUser={isProUser}
+                    promptSuggestions={promptSuggestions}
+                    handleSuggestionClick={handleSuggestionClick}
+                  />
                 ) : (
-                  <div className="messages">
-                    {messages.map((message, index) => (
-                        <div key={index} className={`message ${message.role === 'user' ? 'user-message' : 'bot-message'}`}>
-                            {message.role !== 'user' && (<div className="bot-avatar"><Sparkles /></div>)}
-                            <div className="message-content">
-                                <ReactMarkdown components={{ code: CodeBlock }} remarkPlugins={[remarkGfm]}>{message.content}</ReactMarkdown>
-                            </div>
-                        </div>
-                    ))}
-                    {isLoading && (
-                        <div className="message bot-message">
-                            <div className="bot-avatar"><Sparkles /></div>
-                            <div className="message-content loading">
-                                <Loader2 className="spinner" />
-                                <span style={{ marginLeft: '0.5rem' }}>{currentStatus}</span>
-                            </div>
-                        </div>
-                    )}
-                    <div ref={messagesEndRef} />
-                  </div>
+                                    <MessageList
+                    messages={messages}
+                    isLoading={isLoading}
+                    currentStatus={currentStatus}
+                    messagesEndRef={messagesEndRef}
+                  />
                 )}
             </main>
-            <footer className="input-area">
-                <div className="input-container">
-                    {isStreaming ? (
-                        <button className="stop-button" onClick={handleStop}><Square size={16} />Parar Geração</button>
-                    ) : (
-                        <><textarea className="input-field" placeholder="Digite sua mensagem ou clique em uma sugestão..." value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={handleKeyPress} rows={1} disabled={isLoading} /><button className="send-button" onClick={handleSend} disabled={!input.trim() || isLoading}><Send size={20} /></button></>
-                    )}
-                </div>
-            </footer>
+                        <ChatInput
+                input={input}
+                setInput={setInput}
+                handleSend={handleSend}
+                handleKeyPress={handleKeyPress}
+                isStreaming={isStreaming}
+                handleStop={handleStop}
+                isLoading={isLoading}
+            />
         </div>
     );
 }
