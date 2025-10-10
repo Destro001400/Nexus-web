@@ -1,0 +1,21 @@
+.feedback-component {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.feedback-btn {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.feedback-btn.selected {
+  color: #007bff;
+  transform: scale(1.2);
+}
+.feedback-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,3 +1,49 @@
+:root {
+  /* New Light Theme Palette */
+  --color-bg: #f8f9fa; /* Very light grey */
+  --color-text: #1a1a1a; /* Off-black for softer text */
+  --color-primary: #6d28d9; /* A nice violet */
+  --color-primary-hover: #5b21b6; /* Darker violet for hover */
+  --color-secondary: #e5e7eb; /* Light grey for borders, backgrounds */
+  --color-sidebar: #ffffff;
+  --color-card: #ffffff;
+  --color-accent: #f59e0b; /* An amber/yellow for highlights */
+
+  /* UI Properties */
+  --border-radius: 8px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --transition-speed: 0.2s;
+}
+
+[data-theme="dark"] {
+  /* New Dark Theme Palette */
+  --color-bg: #111827; /* Very dark, slightly blue-ish grey */
+  --color-text: #d1d5db; /* Lighter grey for better readability */
+  --color-primary: #8b5cf6; /* A lighter, more vibrant violet for dark mode */
+  --color-primary-hover: #7c3aed;
+  --color-secondary: #374151; /* Mid-grey for borders, etc. */
+  --color-sidebar: #1f2937; /* Slightly lighter than bg for separation */
+  --color-card: #1f2937;
+  --color-accent: #fcd34d; /* Lighter amber for dark mode */
+}
+
+/* Global Style Improvements */
+*, *::before, *::after {
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+}
+
+body, html {
+  background: var(--color-bg);
+  color: var(--color-text);
+  overflow-x: hidden;
+}
+
+#root {
+  position: relative;
+  min-height: 100vh;
+}
+
 .main-layout {
   display: flex;
   width: 100%;
@@ -14,7 +60,38 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #0a1628;
-  color: #e0e1dd;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   font-size: 1.5rem;
+}
+
+/* General button style to be used across the app */
+.button-base {
+    padding: 10px 18px;
+    border: none;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-primary {
+    background-color: var(--color-primary);
+    color: white;
+}
+
+.button-primary:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* A class for card-like elements */
+.card-base {
+  background-color: var(--color-card);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-secondary);
 }

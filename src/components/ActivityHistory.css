@@ -1,0 +1,36 @@
+.activity-history {
+  margin-top: 2rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+}
+.activity-history h3 {
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #007bff;
+}
+.activity-history ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.activity-history li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.97rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.activity-type {
+  font-weight: bold;
+  color: #333;
+}
+.activity-desc {
+  color: #555;
+}
+.activity-date {
+  color: #888;
+  font-size: 0.9em;
+}

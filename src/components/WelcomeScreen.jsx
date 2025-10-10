@@ -12,6 +12,11 @@ const WelcomeScreen = ({
 }) => {
   return (
     <div className="welcome-screen">
+      <div className="welcome-header">
+        <Sparkles className="welcome-icon" />
+        <h1 className="welcome-title">Como posso ajudar hoje?</h1>
+      </div>
+
       {!conversationId && (
         <div className="model-selector">
           <button
@@ -32,14 +37,13 @@ const WelcomeScreen = ({
           </button>
         </div>
       )}
-      <Sparkles className="welcome-icon" />
-      <h2 className="welcome-title">Como posso ajudar hoje?</h2>
+      
       {!conversationId && (
         <div className="suggestions-grid">
           {promptSuggestions.map((suggestion, index) => (
             <button
               key={index}
-              className="suggestion-card"
+              className="suggestion-card card-base" // Added .card-base
               onClick={() => handleSuggestionClick(suggestion.text)}
             >
               {suggestion.icon}

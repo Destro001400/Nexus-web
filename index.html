@@ -26,5 +26,42 @@
         });
       }
     </script>
+    <script>
+      // Overlay simples para mostrar erros JS que podem deixar a página em branco
+      (function(){
+        function showErrorOverlay(msg) {
+          try {
+            var existing = document.getElementById('__error_overlay');
+            if (existing) existing.remove();
+            var ov = document.createElement('div');
+            ov.id = '__error_overlay';
+            ov.style.position = 'fixed';
+            ov.style.left = '0';
+            ov.style.top = '0';
+            ov.style.width = '100%';
+            ov.style.background = 'rgba(255,0,0,0.9)';
+            ov.style.color = '#fff';
+            ov.style.zIndex = 999999;
+            ov.style.padding = '10px';
+            ov.style.fontFamily = 'monospace';
+            ov.style.whiteSpace = 'pre-wrap';
+            ov.innerText = 'Runtime Error: ' + msg;
+            document.body.appendChild(ov);
+          } catch (e) {
+            console.error('Falha ao mostrar overlay de erro', e);
+          }
+        }
+
+        window.addEventListener('error', function(event){
+          console.error('window.error capturado:', event.error || event.message);
+          showErrorOverlay(event.error ? (event.error.stack || event.error.message) : event.message);
+        });
+
+        window.addEventListener('unhandledrejection', function(event){
+          console.error('unhandledrejection:', event.reason);
+          showErrorOverlay(event.reason ? (event.reason.stack || event.reason) : String(event));
+        });
+      })();
+    </script>
   </body>
 </html>

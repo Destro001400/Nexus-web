@@ -31,7 +31,7 @@ export const personas = {
 
 export default function Personas({ activePersona, onSelectPersona }) {
   return (
-    <div className="personas-container">
+    <div className="personas-container personas-section">
       <p className="personas-label">Persona:</p>
       <div className="personas-buttons">
         {Object.keys(personas).map((key) => (

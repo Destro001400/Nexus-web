@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Send, Square } from 'lucide-react';
 import './ChatInput.css';
 
@@ -11,22 +11,33 @@ const ChatInput = ({
   handleStop,
   isLoading,
 }) => {
+  const textareaRef = useRef(null);
+
+  // Auto-resize textarea height
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [input]);
+
   return (
-    <footer className="input-area">
+    <footer className="chat-input">
       <div className="input-container">
         {isStreaming ? (
-          <button className="stop-button" onClick={handleStop}>
+          <button className="button-base stop-button" onClick={handleStop}>
             <Square size={16} />
             Parar Geração
           </button>
         ) : (
           <>
             <textarea
+              ref={textareaRef}
               className="input-field"
-              placeholder="Digite sua mensagem ou clique em uma sugestão..."
+              placeholder="Digite sua mensagem... (Shift+Enter para nova linha)"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={handleKeyPress}
+              onKeyDown={handleKeyPress} // Changed to onKeyDown for better Enter key handling
               rows={1}
               disabled={isLoading}
             />
@@ -34,8 +45,9 @@ const ChatInput = ({
               className="send-button"
               onClick={handleSend}
               disabled={!input.trim() || isLoading}
+              aria-label="Enviar mensagem"
             >
-              <Send size={20} />
+              <Send size={18} />
             </button>
           </>
         )}

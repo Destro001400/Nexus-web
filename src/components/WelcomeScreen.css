@@ -1,121 +1,118 @@
-.welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center; gap: 1rem; }
-.welcome-icon { width: 64px; height: 64px; color: #00d9ff; filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.5)); animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.05); } }
-.welcome-title { font-size: 2rem; background: linear-gradient(135deg, #00d9ff 0%, #b84fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-.welcome-text { color: #778da9; max-width: 500px; line-height: 1.6; }
+.welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  gap: 2rem; /* Increased gap */
+  padding: 2rem;
+}
 
-/* --- Estilos para os Botões de Seleção de Modelo --- */
+.welcome-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--color-primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.welcome-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+/* === Model Selector === */
 .model-selector {
   display: flex;
-  gap: 1rem;
-  background-color: rgba(0,0,0,0.2);
-  padding: 0.75rem;
-  border-radius: 1rem;
-  border: 1px solid rgba(0, 217, 255, 0.2);
-  margin-bottom: 2rem;
+  gap: 0.5rem;
+  background-color: var(--color-secondary);
+  padding: 0.5rem;
+  border-radius: var(--border-radius);
 }
 
 .model-button {
   background-color: transparent;
-  border: 1px solid rgba(119, 141, 169, 0.4);
-  color: #778da9;
+  border: none;
+  color: var(--color-text);
+  opacity: 0.7;
   padding: 0.75rem 1.25rem;
-  border-radius: 0.75rem;
+  border-radius: 6px; /* Slightly smaller radius */
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 0.6rem;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all var(--transition-speed) ease;
   position: relative;
 }
 
 .model-button:hover:not(:disabled) {
-  background-color: rgba(255, 255, 255, 0.05);
-  color: #e0e1dd;
-  border-color: rgba(0, 217, 255, 0.5);
+  opacity: 1;
+  background-color: var(--color-card);
 }
 
 .model-button.active {
-  background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, rgba(184, 79, 255, 0.15) 100%);
-  color: #e0e1dd;
-  font-weight: 600;
-  border-color: rgba(0, 217, 255, 0.6);
-  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
-}
-
-.model-button span {
-  transition: color 0.3s ease;
-}
-.model-button svg {
-  color: #778da9;
-  transition: all 0.3s ease;
-}
-.model-button:hover:not(:disabled) svg, .model-button.active svg {
-  color: #00d9ff;
-}
-.model-button.active svg {
-  filter: drop-shadow(0 0 5px rgba(0, 217, 255, 0.7));
+  background-color: var(--color-card);
+  color: var(--color-primary);
+  opacity: 1;
+  box-shadow: var(--shadow-sm);
 }
 
 .model-button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .pro-tag {
-  background: linear-gradient(135deg, #b84fff 0%, #8f00ff 100%);
-  color: #fff;
+  background-color: var(--color-accent);
+  color: var(--color-bg);
   font-size: 0.6rem;
   font-weight: 700;
   padding: 0.1rem 0.4rem;
-  border-radius: 0.25rem;
+  border-radius: 4px;
   margin-left: 0.5rem;
 }
 
-/* --- Estilos para as Sugestões de Início --- */
-.welcome-title {
-    margin-bottom: 2rem;
-}
-
+/* === Suggestion Cards === */
 .suggestions-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    width: 100%;
-    max-width: 700px;
-    margin-top: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 700px;
 }
 
 .suggestion-card {
-    background-color: rgba(0, 217, 255, 0.05);
-    border: 1px solid rgba(0, 217, 255, 0.2);
-    border-radius: 0.75rem;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-family: inherit;
-    font-size: 0.9rem;
-    color: #a9b8cc;
+  /* Inherit from card-base and add specifics */
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--color-secondary);
+  background-color: var(--color-card);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.9rem;
 }
 
 .suggestion-card:hover {
-    background-color: rgba(0, 217, 255, 0.1);
-    border-color: #00d9ff;
-    color: #e0e1dd;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
 }
 
 .suggestion-card svg {
-    color: #778da9;
-    flex-shrink: 0;
-    transition: color 0.3s ease;
-}
-
-.suggestion-card:hover svg {
-    color: #00d9ff;
+  color: var(--color-text);
+  opacity: 0.5;
+  flex-shrink: 0;
 }

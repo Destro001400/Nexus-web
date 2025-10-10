@@ -1,16 +1,25 @@
-import { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import { supabase } from './lib/supabaseClient';
+import { useConversation } from './hooks/useConversation'; // Import the hook
 import LandingPage from './pages/LandingPage';
 import Auth from './components/Auth';
-import Chat from './components/Chat';
-import Sidebar from './components/Sidebar';
+import UserProfile from './components/UserProfile';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
+import { TutorialProvider } from './lib/TutorialContext';
+import Tutorial from './components/Tutorial';
+import HelpButton from './components/HelpButton';
+import ThemeToggle from './components/ThemeToggle';
 import './App.css';
 
-// Componente para rotas que precisam de login
+// Lazy imports
+const Chat = React.lazy(() => import('./components/Chat'));
+const Sidebar = React.lazy(() => import('./components/Sidebar'));
+const AdminDashboard = React.lazy(() => import('./pages/AdminDashboard'));
+
+// ProtectedRoute component
 const ProtectedRoute = ({ session }) => {
   if (!session) {
     return <Navigate to="/login" replace />;
@@ -18,13 +27,23 @@ const ProtectedRoute = ({ session }) => {
   return <Outlet />;
 };
 
+// Main App component
 function App() {
   const [session, setSession] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      Notification.requestPermission();
+    }
+  }, []);
+
+  useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      setLoading(false);
+    }).catch(err => {
+      console.error('Error getting session:', err);
       setLoading(false);
     });
 
@@ -45,126 +64,100 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <Toaster />
-        <Routes>
-          <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
-          <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
-          <Route element={<ProtectedRoute session={session} />}>
-            <Route path="/chat" element={<MainAppLayout session={session} />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <TutorialProvider>
+        <BrowserRouter>
+          <Toaster />
+          <Tutorial />
+          <HelpButton />
+          <ThemeToggle />
+          <Routes>
+            <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
+            <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
+            <Route element={<ProtectedRoute session={session} />}>
+              <Route path="/chat" element={<MainAppLayout session={session} />} />
+              <Route path="/chat/:id" element={<MainAppLayout session={session} />} />
+              <Route path="/profile" element={<UserProfile session={session} />} />
+              <Route path="/admin" element={
+                <React.Suspense fallback={<div style={{padding:20}}>Carregando...</div>}>
+                  <AdminDashboard session={session} />
+                </React.Suspense>
+              } />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </TutorialProvider>
     </ErrorBoundary>
   );
 }
 
-// Componente que agrupa a lógica do app logado
+// MainAppLayout component (now much simpler)
 const MainAppLayout = React.memo(({ session }) => {
-    const [activeConversationId, setActiveConversationId] = useState(null);
-    const [isSidebarOpen, setSidebarOpen] = useState(true);
-    const [conversations, setConversations] = useState([]);
-    const [conversationsLoading, setConversationsLoading] = useState(true);
-    const [userProfile, setUserProfile] = useState(null);
-    const location = useLocation();
+  const [activeConversationId, setActiveConversationId] = useState(null);
+  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const [userProfile, setUserProfile] = useState(null);
+  const location = useLocation();
 
-    // Função para buscar o perfil (agora separada)
-    const fetchUserProfile = useCallback(async () => {
-        if (!session) return;
-        const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-        setUserProfile(data);
-    }, [session]);
-    
-    // useEffect que ouve as mudanças do banco de dados em tempo real
-    useEffect(() => {
-        if (!session) return;
+  // Use the custom hook for conversation management
+  const { conversations, loadingConversations, saveConversation, deleteConversation } = useConversation(session);
 
-        // 1. Busca os dados iniciais (perfil e conversas)
-        const fetchInitialData = async () => {
-            setConversationsLoading(true);
-            fetchUserProfile();
-            const { data } = await supabase
-                .from('conversations')
-                .select('id, created_at, title, category, model')
-                .eq('user_id', session.user.id)
-                .order('created_at', { ascending: false });
-            if (data) setConversations(data);
-            setConversationsLoading(false);
-        };
-        fetchInitialData();
+  const fetchUserProfile = useCallback(async () => {
+    if (!session) return;
+    const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+    setUserProfile(data);
+  }, [session]);
 
-        // 2. "Ouve" por qualquer mudança na tabela de conversas
-        const channel = supabase
-            .channel('public:conversations')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'conversations', filter: `user_id=eq.${session.user.id}` },
-                (payload) => {
-                    console.log('Mudança no histórico recebida!', payload);
-                    // Quando algo muda (cria, atualiza, deleta), busca a lista de novo
-                    fetchInitialData();
-                }
-            )
-            .subscribe();
+  useEffect(() => {
+    fetchUserProfile();
+  }, [fetchUserProfile]);
 
-        // 3. Limpa a "audição" quando o componente desmonta
-        return () => {
-            supabase.removeChannel(channel);
-        };
-    }, [session, fetchUserProfile]);
+  // Handle payment success
+  useEffect(() => {
+    const checkPaymentStatus = async () => {
+      const searchParams = new URLSearchParams(location.search);
+      if (searchParams.get('payment_success') === 'true') {
+        await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
+        toast.success("Obrigado por assinar o Nexus Pro! Bem-vindo(a) à elite. ✨");
+        fetchUserProfile();
+        window.history.replaceState(null, '', '/chat');
+      }
+    };
+    checkPaymentStatus();
+  }, [location, session.user.id, fetchUserProfile]);
 
+  const handleDelete = (convoId) => {
+    deleteConversation(convoId);
+    if (activeConversationId === convoId) {
+      setActiveConversationId(null);
+    }
+  }
 
-    // useEffect que verifica o status do pagamento
-    useEffect(() => {
-      const checkPaymentStatus = async () => {
-        const searchParams = new URLSearchParams(location.search);
-        if (searchParams.get('payment_success') === 'true') {
-          await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
-          toast.success("Obrigado por assinar o Nexus Pro! Bem-vindo(a) à elite. ✨");
-          fetchUserProfile(); // Atualiza o perfil depois do pagamento
-          window.history.replaceState(null, '', '/chat');
-        }
-      };
-      checkPaymentStatus();
-    }, [location, session.user.id, fetchUserProfile]);
-
-
-    const handleDeleteConversation = useCallback(async (conversationId) => {
-        if (!window.confirm("Tem certeza que quer apagar esta conversa?")) return;
-        
-        await supabase.from('conversations').delete().eq('id', conversationId);
-
-        // Se a conversa deletada era a ativa, volta para a tela de nova conversa
-        if (activeConversationId === conversationId) {
-            setActiveConversationId(null);
-        }
-        // Não precisa mais chamar fetchConversations(), o Realtime cuida disso!
-    }, [activeConversationId]);
-
-    return (
-        <div className="main-layout">
-            <Sidebar 
-                isOpen={isSidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-                conversations={conversations}
-                conversationsLoading={conversationsLoading}
-                activeConversationId={activeConversationId}
-                onSelectConversation={setActiveConversationId}
-                onDeleteConversation={handleDeleteConversation}
-                isProUser={userProfile?.is_pro}
-            />
-            <Chat 
-                key={activeConversationId || 'new'}
-                session={session} 
-                conversationId={activeConversationId}
-                onConversationCreated={(newId) => {
-                    // Quando uma nova conversa é criada, o Realtime vai atualizar a lista.
-                    // A gente só precisa definir a nova conversa como ativa.
-                    setActiveConversationId(newId);
-                }}
-                onToggleSidebar={() => setSidebarOpen(prev => !prev)}
-                isProUser={userProfile?.is_pro}
-            />
-        </div>
-    );
+  return (
+    <div className="main-layout">
+      <React.Suspense fallback={<LoadingSpinner size="small" />}>
+        <Sidebar 
+          isOpen={isSidebarOpen}
+          onClose={() => setSidebarOpen(false)}
+          conversations={conversations}
+          conversationsLoading={loadingConversations}
+          activeConversationId={activeConversationId}
+          onSelectConversation={setActiveConversationId}
+          onDeleteConversation={handleDelete}
+          isProUser={userProfile?.is_pro}
+        />
+      </React.Suspense>
+      <React.Suspense fallback={<div style={{flex:1,display:'flex',alignItems:'center',justifyContent:'center'}}>Carregando chat...</div>}>
+        <Chat 
+          key={activeConversationId || 'new'}
+          session={session} 
+          conversationId={activeConversationId}
+          saveConversation={saveConversation} // Pass save function to Chat
+          onConversationCreated={setActiveConversationId} // When a new convo is created, set it as active
+          onToggleSidebar={() => setSidebarOpen(prev => !prev)}
+          isProUser={userProfile?.is_pro}
+        />
+      </React.Suspense>
+    </div>
+  );
 });
 
 export default App;
