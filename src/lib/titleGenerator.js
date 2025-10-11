@@ -15,7 +15,7 @@ export const generateTitle = async (messages) => {
 
   try {
     // Note: Using the 'flash' model for cost-effectiveness and speed.
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" }); 
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" }); 
     const result = await model.generateContent(`${prompt}\n\nCONVERSA:\n---\n${context}\n---`);
     console.log("RESPOSTA DA API:", JSON.stringify(result, null, 2));
 
