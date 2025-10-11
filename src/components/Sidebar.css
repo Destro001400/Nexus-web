@@ -180,3 +180,42 @@
   margin-right: 8px;
   color: #f1c40f;
 }
+.sidebar.light {
+  background-color: #f0f2f5;
+  border-right-color: #d1d7e0;
+}
+
+.sidebar.light .close-sidebar-button,
+.sidebar.light .profile-button,
+.sidebar.light .conversation-link {
+  color: #1c1e21;
+}
+
+.sidebar.light .search-input {
+  background-color: #e4e6eb;
+  border-color: #d1d7e0;
+  color: #1c1e21;
+}
+
+.sidebar.light .search-icon,
+.sidebar.light .history-title,
+.sidebar.light .delete-button {
+  color: #65676b;
+}
+
+.sidebar.light .conversation-link:hover {
+  background-color: #e4e6eb;
+}
+
+.sidebar.light .conversation-link.active {
+  background-color: #d1d7e0;
+}
+
+.sidebar.light .sidebar-footer {
+  border-top-color: #d1d7e0;
+}
+
+.sidebar.light .pro-badge {
+  background-color: #e4e6eb;
+  color: #1c1e21;
+}

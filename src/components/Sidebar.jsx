@@ -54,7 +54,7 @@ export default function Sidebar({ isOpen, onClose, conversations, conversationsL
     return (
         <>
             {isOpen && <div className="sidebar-backdrop" onClick={onClose}></div>}
-            <aside className={`sidebar ${isOpen ? 'open' : 'closed'}`}>
+            <aside className={`sidebar ${isOpen ? 'open' : 'closed'} ${theme}`}>
                 <div className="sidebar-content">
                     <div className="sidebar-header">
                         <button className="button-base button-primary new-chat-button" onClick={() => onSelectConversation(null)}><Plus size={18} /> Nova Conversa</button>
