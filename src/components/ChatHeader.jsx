@@ -3,7 +3,6 @@ import { Menu, Sparkles, LogOut, Download } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import './ChatHeader.css';
 
-
 const ChatHeader = ({ session, onToggleSidebar, onExport }) => {
   return (
     <header className="header chat-header">
@@ -19,7 +18,7 @@ const ChatHeader = ({ session, onToggleSidebar, onExport }) => {
           <button className="export-button" onClick={onExport} title="Exportar conversa">
             <Download size={18} /> Exportar
           </button>
-          <span>{session.user.email}</span>
+
           <button className="logout-button" onClick={() => supabase.auth.signOut()}>
             <LogOut size={18} /> Sair
           </button>

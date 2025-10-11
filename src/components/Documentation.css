@@ -1,0 +1,29 @@
+.documentation-content {
+  padding: 20px;
+  line-height: 1.6;
+}
+
+.documentation-content h1,
+.documentation-content h2,
+.documentation-content h3,
+.documentation-content h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.documentation-content hr {
+  margin: 20px 0;
+  border: 0;
+  border-top: 1px solid #eee;
+}
+
+.documentation-content ul {
+  padding-left: 20px;
+}
+
+.documentation-content code {
+  background-color: #f4f4f4;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: monospace;
+}

@@ -12,6 +12,7 @@
 .chat-container {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 1.5rem;
   width: 100%;
 }
@@ -39,7 +40,7 @@
 .message-bubble {
   display: flex;
   gap: 1rem;
-  max-width: 90%;
+  max-width: 75%;
 }
 
 .message-avatar {
@@ -59,6 +60,8 @@
   padding: 0.8rem 1.2rem;
   border-radius: var(--border-radius);
   line-height: 1.6;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* === Assistant Messages === */
@@ -67,8 +70,8 @@
 }
 
 .assistant .message-content {
-  background-color: var(--color-card);
-  border: 1px solid var(--color-secondary);
+  background-color: transparent;
+  border: none;
 }
 
 /* === User Messages === */

@@ -10,7 +10,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
 import { TutorialProvider } from './lib/TutorialContext';
 import Tutorial from './components/Tutorial';
-import HelpButton from './components/HelpButton';
+import DocumentationPage from './pages/DocumentationPage';
+
 import ThemeToggle from './components/ThemeToggle';
 import './App.css';
 
@@ -68,11 +69,11 @@ function App() {
         <BrowserRouter>
           <Toaster />
           <Tutorial />
-          <HelpButton />
-          <ThemeToggle />
+
           <Routes>
             <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
             <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
+            <Route path="/docs" element={<DocumentationPage />} />
             <Route element={<ProtectedRoute session={session} />}>
               <Route path="/chat" element={<MainAppLayout session={session} />} />
               <Route path="/chat/:id" element={<MainAppLayout session={session} />} />
@@ -93,9 +94,24 @@ function App() {
 // MainAppLayout component (now much simpler)
 const MainAppLayout = React.memo(({ session }) => {
   const [activeConversationId, setActiveConversationId] = useState(null);
-  const [isSidebarOpen, setSidebarOpen] = useState(true);
+  
+  // Task 4: Persist Sidebar State
+  const [isSidebarOpen, setSidebarOpen] = useState(() => {
+    const savedState = localStorage.getItem('isSidebarOpen');
+    if (savedState !== null) {
+      return JSON.parse(savedState);
+    }
+    // Default to closed on mobile, open on desktop
+    return window.innerWidth > 768;
+  });
+
   const [userProfile, setUserProfile] = useState(null);
   const location = useLocation();
+
+  // Task 4: Save state to localStorage on change
+  useEffect(() => {
+    localStorage.setItem('isSidebarOpen', JSON.stringify(isSidebarOpen));
+  }, [isSidebarOpen]);
 
   // Use the custom hook for conversation management
   const { conversations, loadingConversations, saveConversation, deleteConversation } = useConversation(session);
