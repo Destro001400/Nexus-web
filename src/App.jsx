@@ -8,6 +8,7 @@ import Auth from './components/Auth';
 import UserProfile from './components/UserProfile';
 import ErrorBoundary from './components/ErrorBoundary';
 import LoadingSpinner from './components/LoadingSpinner';
+import { ThemeProvider } from './lib/ThemeContext';
 import { TutorialProvider } from './lib/TutorialContext';
 import Tutorial from './components/Tutorial';
 import DocumentationPage from './pages/DocumentationPage';
@@ -65,28 +66,30 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <TutorialProvider>
-        <BrowserRouter>
-          <Toaster />
-          <Tutorial />
+      <ThemeProvider>
+        <TutorialProvider>
+          <BrowserRouter>
+            <Toaster />
+            <Tutorial />
 
-          <Routes>
-            <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
-            <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
-            <Route path="/docs" element={<DocumentationPage />} />
-            <Route element={<ProtectedRoute session={session} />}>
-              <Route path="/chat" element={<MainAppLayout session={session} />} />
-              <Route path="/chat/:id" element={<MainAppLayout session={session} />} />
-              <Route path="/profile" element={<UserProfile session={session} />} />
-              <Route path="/admin" element={
-                <React.Suspense fallback={<div style={{padding:20}}>Carregando...</div>}>
-                  <AdminDashboard session={session} />
-                </React.Suspense>
-              } />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </TutorialProvider>
+            <Routes>
+              <Route path="/" element={!session ? <LandingPage /> : <Navigate to="/chat" />} />
+              <Route path="/login" element={!session ? <Auth /> : <Navigate to="/chat" />} />
+              <Route path="/docs" element={<DocumentationPage />} />
+              <Route element={<ProtectedRoute session={session} />}>
+                <Route path="/chat" element={<MainAppLayout session={session} />} />
+                <Route path="/chat/:id" element={<MainAppLayout session={session} />} />
+                <Route path="/profile" element={<UserProfile session={session} />} />
+                <Route path="/admin" element={
+                  <React.Suspense fallback={<div style={{padding:20}}>Carregando...</div>}>
+                    <AdminDashboard session={session} />
+                  </React.Suspense>
+                } />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </TutorialProvider>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 }

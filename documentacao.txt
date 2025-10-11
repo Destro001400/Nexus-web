@@ -1,0 +1,84 @@
+Documentação Oficial da Plataforma Nexus AI
+1. Introdução à Arquitetura Nexus
+Bem-vindo à documentação oficial do Nexus AI. Este documento serve como um guia abrangente para a utilização, filosofia e arquitetura da nossa plataforma de inteligência artificial. O Nexus foi concebido não como um assistente generalista, mas como uma plataforma especializada, projetada para operar com maestria em domínios criativos e analíticos específicos.
+Nossa missão é fornecer uma ferramenta que atue como uma extensão do intelecto de pesquisadores, escritores e músicos, oferecendo uma parceria criativa e técnica de alta performance. Diferentemente de modelos de linguagem convencionais, o Nexus é estruturado em torno de "Personas": instâncias do modelo fundamental, pré-ajustadas e otimizadas para raciocinar e interagir dentro de um contexto de especialização definido.
+2. Guia de Início Rápido (First Steps)
+A interação com o Nexus foi projetada para ser intuitiva, permitindo que o usuário acesse rapidamente a expertise necessária.
+2.1 Iniciando uma Nova Conversa
+Toda interação começa na tela principal. O histórico de suas conversas anteriores é armazenado na barra lateral esquerda para fácil acesso e continuidade, permitindo a gestão de múltiplos projetos ou linhas de pesquisa simultaneamente.
+2.2 O Conceito de "Personas"
+As Personas são o diferencial estratégico do Nexus. Cada Persona representa uma configuração especializada da IA, pré-carregada com o contexto, o jargão e os modelos de raciocínio de uma área específica. A seleção de uma Persona não é um mero filtro de tópico; é uma instrução para que a IA adote um framework de pensamento completo.
+2.3 Seleção de Modelo: Nexus Flash e Nexus Pro
+Oferecemos diferentes níveis de complexidade e performance para atender às suas necessidades:
+Nexus Flash: Ideal para tarefas rápidas, resumos e interações que exigem agilidade.
+Nexus Pro: Utiliza um modelo mais robusto, projetado para tarefas que demandam maior profundidade criativa, análise complexa e geração de conteúdo extenso. O acesso ao Nexus Pro está disponível para os apoiadores do projeto (consulte a Seção 4).
+3. Guia Detalhado das Personas
+Esta seção aprofunda a capacidade e a aplicação de cada Persona disponível na plataforma.
+3.1 Persona: Pesquisador Acadêmico (Academic Researcher)
+Esta Persona foi otimizada para o rigor do ambiente acadêmico e científico.
+Descrição: Atua como um assistente de pesquisa virtual, treinado para compreender e processar informações de artigos científicos, teses e publicações complexas.
+Capacidades Principais:
+Síntese e Análise Crítica: Gera resumos detalhados, identifica argumentos centrais, metodologias e lacunas em trabalhos de pesquisa.
+Geração de Hipóteses: Com base no material fornecido, pode sugerir novas direções de pesquisa, questões correlatas e potenciais hipóteses a serem testadas.
+Assistência de Citação e Formatação: Auxilia na organização de referências e na estruturação de textos segundo normas acadêmicas.
+Exemplos de Prompts Avançados:
+"Analise criticamente o artigo [título/link], focando na validade da metodologia estatística empregada e sugira três possíveis críticas que uma banca examinadora poderia levantar."
+"Com base na teoria de [autor/conceito], gere um resumo estruturado deste documento e proponha uma hipótese de pesquisa original que estenda suas conclusões."
+3.2 Persona: Criação de Textos & Roteiros (Creative Writer & Scripter)
+Otimizada para a arte da escrita criativa e técnica, desde ficção até a elaboração de roteiros.
+Descrição: Uma ferramenta de parceria para escritores, roteiristas e criadores de conteúdo que buscam superar o bloqueio criativo e refinar sua arte.
+Capacidades Principais:
+Desenvolvimento de Narrativas: Auxilia na criação de arcos de personagens, estruturas de enredo (ex: Jornada do Herói), diálogos e descrições cênicas.
+Escrita Técnica e Copywriting: Gera textos para blogs, documentação técnica, e-mails de marketing e outros conteúdos, com foco em clareza, tom e engajamento.
+Análise e Refino de Estilo: Pode reescrever passagens para se adequarem a um tom específico (ex: formal, cômico, suspense) ou para melhorar a fluidez e o impacto do texto.
+Exemplos de Prompts Avançados:
+"Desenvolva uma cena de diálogo entre um detetive cético e uma testemunha enigmática. O subtexto da conversa deve revelar que a testemunha sabe mais do que aparenta, sem declará-lo explicitamente."
+"Reescreva o seguinte parágrafo de um artigo técnico sobre [assunto] para um público leigo, utilizando analogias para explicar os conceitos complexos."
+3.3 Persona: Composição Musical (Music Composer)
+Uma Persona dedicada à arte e à técnica da composição musical, focada principalmente em letras e estruturas.
+Descrição: Atua como um parceiro de composição para letristas, músicos e produtores, oferecendo tanto inspiração criativa quanto insights técnicos.
+Capacidades Principais:
+Geração e Desenvolvimento de Letras: Cria letras originais com base em temas, gêneros e estilos específicos. Auxilia na busca por rimas ricas, metáforas e no desenvolvimento da narrativa lírica.
+Análise e Sugestão Estrutural: Sugere estruturas de canções (verso, pré-refrão, refrão, ponte), progressões de acordes comuns em determinados gêneros e ideias para arranjos.
+Exploração de Conceitos e Temas: Ajuda a realizar brainstormings de conceitos para novas músicas, explorando diferentes ângulos e abordagens para um mesmo tema.
+Exemplos de Prompts Avançados:
+"Crie uma letra para uma canção de rock alternativo no estilo dos anos 90. O tema é a nostalgia e a perda da inocência. A estrutura deve ser: Verso 1, Refrão, Verso 2, Refrão, Ponte, Refrão Final com variação."
+"Estou trabalhando com a progressão de acordes Am-G-C-F. Sugira uma linha melódica para o refrão e desenvolva um conceito lírico que combine com a sensação melancólica dessa harmonia."
+4. Nexus Pro & Ultimate: Apoiando o Futuro da Plataforma
+O Nexus é um projeto independente, impulsionado pela paixão pela tecnologia e pelo apoio de nossa comunidade. Para garantir seu desenvolvimento contínuo e financiar a complexa jornada de treinar nosso próprio modelo de linguagem, oferecemos níveis de apoio através da plataforma Apoia.se.
+4.1 Nível: Nexus Pro (R$ 15/mês)
+O nível Pro é projetado para usuários que buscam a máxima performance da plataforma.
+Acesso ao Modelo Nexus Pro: Utilize nosso modelo mais avançado e criativo, ideal para tarefas que exigem maior profundidade e geração de conteúdo de alta qualidade.
+Suporte Prioritário: Seus feedbacks e solicitações de suporte são tratados com prioridade por nossa equipe.
+Impacto Direto: Sua contribuição mensal é fundamental para cobrir os custos operacionais (servidores, APIs) e nos permite dedicar mais tempo ao desenvolvimento.
+4.2 Nível: Nexus Ultimate (R$ 50/mês)
+O nível Ultimate é para os apoiadores que desejam maximizar seu impacto e se tornar parceiros estratégicos no crescimento do Nexus.
+Todos os Benefícios do Nexus Pro: Acesso irrestrito ao modelo Pro e suporte prioritário.
+Acesso Antecipado a Novos Recursos: Seja o primeiro a testar e dar feedback sobre novas Personas, funcionalidades e melhorias na plataforma antes do lançamento público.
+Impulsionando a Missão: Sua contribuição significativa acelera diretamente nossa capacidade de adquirir datasets de alta qualidade e investir em recursos computacionais para o treinamento do nosso modelo de linguagem proprietário. Você é um pilar central na construção do futuro do Nexus.
+5. Política de Transparência, Processamento de Dados e Aprimoramento de Modelo
+Data de Efetivação: 11 de Outubro de 2025
+5.1 Introdução e Escopo
+Esta política detalha os princípios operacionais, o processamento de dados e os termos de uso relativos à plataforma Nexus AI ("Nexus", "Plataforma", "Serviço"). Nosso compromisso fundamental é com a transparência total perante nossos usuários ("Usuário", "Você"). Ao utilizar os serviços do Nexus, você reconhece ter lido, compreendido e concordado com os termos aqui descritos.
+5.2 Arquitetura Tecnológica e Provisão do Serviço Atual
+Para assegurar um serviço de alta performance, estabilidade e qualidade superior desde sua concepção, a atual iteração da plataforma Nexus opera utilizando a infraestrutura e os modelos de linguagem fornecidos pela API do Google Gemini.
+Esta é uma decisão estratégica que nos permite focar no desenvolvimento da experiência do usuário, na arquitetura da plataforma e, mais crucialmente, na curadoria dos datasets especializados que formarão a base de nosso futuro modelo proprietário. Consequentemente, as interações, prompts e solicitações enviadas por você à plataforma são processados pelos servidores do Google para a geração das respostas. O Nexus atua como a interface inteligente e a camada de aplicação que gerencia essa interação.
+5.3 Coleta e Utilização de Dados para o Desenvolvimento do Modelo Proprietário
+O objetivo primário e a missão de longo prazo da Nexus AI Corp. é o desenvolvimento de um modelo de linguagem proprietário, otimizado e especializado para os domínios de Pesquisa Acadêmica, Criação de Textos e Composição Musical. A concretização deste objetivo depende intrinsecamente da análise de um vasto volume de interações contextuais.
+Consentimento de Uso: Ao utilizar a plataforma Nexus, você concede consentimento explícito para que os dados de suas conversas (prompts e respostas geradas) sejam coletados, armazenados e utilizados para fins de pesquisa, desenvolvimento e treinamento dos algoritmos de inteligência artificial do Nexus.
+Finalidade da Coleta: Os dados coletados são utilizados estritamente para:
+Treinamento e Refinamento de Algoritmos: Aprimorar a capacidade do modelo em compreender, raciocinar e gerar conteúdo relevante e coerente.
+Mitigação de Vieses e Erros: Identificar, analisar e corrigir vieses sistêmicos e padrões de erro no comportamento do modelo.
+Aprimoramento das "Personas": Aumentar a especialização contextual de cada Persona, garantindo que sua performance exceda a de modelos generalistas.
+5.4 Compromisso com a Privacidade e Anonimização de Dados
+A privacidade de nossos usuários é um pilar não negociável de nossa operação. Embora utilizemos os dados das conversas para treinamento, implementamos protocolos rigorosos para proteger a identidade dos usuários.
+Processo de Anonimização: Antes de serem incorporados a qualquer dataset de treinamento, os dados passam por um processo de anonimização. Este processo visa remover ou dissociar quaisquer Informações de Identificação Pessoal (PII - Personally Identifiable Information), como nomes, endereços de e-mail, números de telefone ou outros dados sensíveis que possam ter sido inseridos durante uma conversa. Nosso foco analítico reside nos padrões linguísticos e estruturais da conversa, não na identidade de quem a gerou.
+O Nexus não compartilha dados brutos de conversas com terceiros, exceto conforme necessário para a provisão do serviço através da API do Google Gemini, sujeito às políticas de privacidade do Google.
+6. Contato e Suporte Técnico
+​Nosso compromisso é oferecer uma plataforma robusta e uma experiência de usuário excepcional. Se você encontrar qualquer problema técnico, tiver dúvidas que não foram respondidas nesta documentação, ou desejar fornecer feedback e sugestões para futuras versões do Nexus, nossa equipe está disponível para ajudar.
+​6.1 Canal de Comunicação Oficial
+​Para todas as solicitações de suporte, por favor, entre em contato conosco através do nosso e-mail oficial:
+​E-mail de Suporte: Nexus.ai.corporation@gmail.com
+​Ao nos contatar, por favor, forneça o máximo de detalhes possível sobre sua solicitação (incluindo capturas de tela, se aplicável) para que possamos oferecer uma resolução rápida e eficaz.
+​6.2 Suporte Prioritário
+​Lembramos que os apoiadores dos níveis Nexus Pro e Nexus Ultimate têm suas solicitações tratadas com prioridade em nossa fila de suporte, como parte dos benefícios de seu apoio contínuo ao projeto.
