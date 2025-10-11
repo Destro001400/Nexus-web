@@ -40,7 +40,7 @@
 .message-bubble {
   display: flex;
   gap: 1rem;
-  max-width: 75%;
+  max-width: 75ch;
 }
 
 .message-avatar {
@@ -59,6 +59,7 @@
 .message-content {
   padding: 0.8rem 1.2rem;
   border-radius: var(--border-radius);
+  font-size: 1rem;
   line-height: 1.6;
   overflow-wrap: break-word;
   word-wrap: break-word;
