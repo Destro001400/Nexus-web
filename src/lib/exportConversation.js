@@ -25,6 +25,7 @@ export function exportAsPdf(messages, filename = 'conversa.pdf') {
   conversationContainer.style.fontSize = '10pt';
   conversationContainer.style.lineHeight = '1.5';
   conversationContainer.style.wordWrap = 'break-word';
+  conversationContainer.style.color = 'black'; // Garante que o texto seja preto no PDF
 
   // Generate HTML for all messages
   const htmlContent = messages.map(m => {
