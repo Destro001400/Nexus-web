@@ -51,7 +51,17 @@ const MessageList = ({ messages, isLoading, currentStatus, messagesEndRef, conve
             {message.role === 'user' ? <User size={20} /> : <Bot size={20} />}
           </div>
           <div className="message-content">
-            <ReactMarkdown components={{ code: CodeBlock }} remarkPlugins={[remarkGfm]}>
+            <ReactMarkdown
+              components={{
+                code: CodeBlock,
+                table: ({node, ...props}) => (
+                  <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
+                    <table style={{ width: '100%' }} {...props} />
+                  </div>
+                )
+              }}
+              remarkPlugins={[remarkGfm]}
+            >
               {message.content}
             </ReactMarkdown>
             {message.role === 'assistant' && conversationId && userId && (
