@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import { marked } from 'marked';
 
 // Função para exportar conversa em TXT
 export function exportAsTxt(messages, filename = 'conversa.txt') {
@@ -13,80 +13,42 @@ export function exportAsMarkdown(messages, filename = 'conversa.md') {
   downloadFile(content, filename, 'text/markdown');
 }
 
-// Função para exportar conversa em PDF com renderização avançada de tabelas
-export function exportAsPdf(messages, filename = 'conversa-pro.pdf') {
-  const doc = new jsPDF();
-  let yPosition = 15; // Posição inicial no eixo Y
+// Função para exportar conversa em PDF, renderizando Markdown
+export function exportAsPdf(messages, filename = 'conversa.pdf') {
+  const pdf = new jsPDF('p', 'mm', 'a4');
 
-  const addText = (text, options = {}) => {
-    const pageHeight = doc.internal.pageSize.getHeight();
-    const splitText = doc.splitTextToSize(text, 180); // 180 é a largura do texto
-    
-    const textHeight = splitText.length * 5; // Approximate height
-    if (yPosition + textHeight > pageHeight - 20) { // Check for page overflow
-      doc.addPage();
-      yPosition = 15;
-    }
-    
-    doc.text(splitText, 15, yPosition, options);
-    yPosition += textHeight + 2; // Add space after the text
-  };
+  // Create a container for the entire conversation
+  const conversationContainer = document.createElement('div');
+  conversationContainer.style.width = '180mm'; // A4 width - margins
+  conversationContainer.style.padding = '10mm';
+  conversationContainer.style.fontFamily = 'Helvetica, sans-serif';
+  conversationContainer.style.fontSize = '10pt';
+  conversationContainer.style.lineHeight = '1.5';
+  conversationContainer.style.wordWrap = 'break-word';
+  conversationContainer.style.color = 'black'; // Garante que o texto seja preto no PDF
 
-  messages.forEach(message => {
-    if (yPosition > doc.internal.pageSize.getHeight() - 20) {
-        doc.addPage();
-        yPosition = 15;
-    }
+  // Generate HTML for all messages
+  const htmlContent = messages.map(m => {
+    const role = `<strong>${m.role}:</strong>`;
+    // Convert markdown to HTML
+    const content = marked(m.content);
+    return `<div style="margin-bottom: 10px;">${role}<br>${content}</div>`;
+  }).join('<hr style="margin: 15px 0;">');
 
-    // Adiciona o remetente em negrito
-    doc.setFont('helvetica', 'bold');
-    addText(`${message.role}:`);
-    doc.setFont('helvetica', 'normal');
+  conversationContainer.innerHTML = htmlContent;
+  document.body.appendChild(conversationContainer); // Add to DOM to be rendered
 
-    const content = message.content;
-
-    // Detecta e renderiza tabelas
-    if (content.includes('| ---')) {
-      try {
-        const lines = content.split('\n').filter(line => line.trim().startsWith('|') && line.trim().length > 1);
-        if (lines.length < 2) { // Not a valid table (header + separator at least)
-            addText(content);
-            return;
-        }
-        
-        const head = [lines[0].split('|').map(h => h.trim()).slice(1, -1)];
-        const body = lines.slice(2).map(row => row.split('|').map(cell => cell.trim()).slice(1, -1));
-
-        autoTable(doc, {
-            startY: yPosition,
-            head: head,
-            body: body,
-            theme: 'striped',
-            styles: {
-            fontSize: 8,
-            cellPadding: 2,
-            },
-            headStyles: {
-            fillColor: [41, 128, 185],
-            textColor: 255,
-            fontStyle: 'bold',
-            }
-        });
-        yPosition = doc.lastAutoTable.finalY + 10;
-      } catch (e) {
-        console.error("Error parsing table:", e);
-        addText(content); // Fallback to plain text if table parsing fails
-      }
-    } else {
-      // Renderiza texto normal
-      addText(content);
-    }
-
-    yPosition += 3; // Espaço entre as mensagens
+  pdf.html(conversationContainer, {
+    callback: function (doc) {
+      doc.save(filename);
+      document.body.removeChild(conversationContainer); // Clean up
+    },
+    x: 10,
+    y: 10,
+    width: 190, // Usable width on A4
+    windowWidth: conversationContainer.scrollWidth
   });
-
-  doc.save(filename);
-};
+}
 
 
 function downloadFile(content, filename, mime) {
