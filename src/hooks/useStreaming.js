@@ -3,7 +3,7 @@ import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
 import { genAI } from '../lib/geminiClient';
 import { checkMessageLimit } from '../lib/limit';
-import { personas } from '../components/Personas';
+import { personas } from '../lib/personas.jsx';
 
 export function useStreaming({ session, conversationId, saveConversation, isProUser, messages, setMessages }) {
   const [isLoading, setIsLoading] = useState(false);
