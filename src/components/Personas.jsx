@@ -1,5 +1,5 @@
 import './Personas.css';
-import { personas } from '../lib/personas';
+import { personas } from '../lib/personas.jsx';
 
 export default function Personas({ activePersona, onSelectPersona }) {
   return (
