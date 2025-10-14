@@ -68,10 +68,6 @@
     padding: 0.75rem 1rem;
   }
 
-  .sidebar-toggle {
-    display: block; /* Shown on mobile */
-  }
-
   .logo-container {
     display: none; /* Hide logo on smaller screens */
   }
