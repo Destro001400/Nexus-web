@@ -20,7 +20,6 @@
   color: #f0f0f0;
   cursor: pointer;
   padding: 0.5rem;
-  display: none; /* Hidden on desktop */
 }
 
 .logo-container {
@@ -67,10 +66,6 @@
 @media (max-width: 768px) {
   .app-header {
     padding: 0.75rem 1rem;
-  }
-
-  .sidebar-toggle {
-    display: block; /* Shown on mobile */
   }
 
   .logo-container {
