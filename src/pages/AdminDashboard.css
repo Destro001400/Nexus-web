@@ -1,82 +1,114 @@
+/* Estilos gerais para o painel de administração */
 .admin-dashboard {
-  max-width: 1200px;
-  margin: 40px auto;
-  background: var(--background);
-  color: var(--text);
-  border-radius: 12px;
-  box-shadow: 0 2px 16px #0002;
-  padding: 32px 24px;
+  padding: 2rem;
+  background-color: #f4f7f9;
+  min-height: 100vh;
+  color: #333;
 }
 
-.stats-row {
-  display: flex;
-  gap: 24px;
-  margin-bottom: 32px;
+.admin-dashboard h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
 }
 
-.stat-card {
-  flex: 1;
-  background: var(--surface);
-  border-radius: 8px;
-  padding: 24px;
-  text-align: center;
-  font-size: 1.2rem;
-  box-shadow: 0 1px 4px #0001;
-  transition: transform 0.2s;
-}
-
-.stat-card:hover {
-  transform: translateY(-2px);
-}
-
-.charts-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 24px;
-  margin-bottom: 32px;
-}
-
-.chart-card {
-  background: var(--surface);
-  border-radius: 8px;
-  padding: 24px;
-  min-height: 300px;
-  box-shadow: 0 1px 4px #0001;
-}
-
-.chart-card h4 {
-  margin-bottom: 20px;
-  text-align: center;
-  color: var(--text);
+.admin-dashboard > p {
+  color: #7f8c8d;
+  margin-bottom: 2rem;
   font-size: 1.1rem;
 }
 
-.top-users {
-  background: var(--surface);
+/* Estilos para as seções de gerenciamento */
+.management-section {
+  background-color: #ffffff;
+  padding: 2rem;
   border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 1px 4px #0001;
-  margin-top: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
 }
 
-/* Estilização responsiva */
-@media (max-width: 768px) {
-  .admin-dashboard {
-    margin: 20px auto;
-    padding: 20px 16px;
-  }
+.management-section h2 {
+  font-size: 1.8rem;
+  color: #34495e;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
 
-  .stats-row {
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  .charts-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .chart-card {
-    min-height: 250px;
-  }
+.management-section h4 {
+    font-size: 1.3rem;
+    color: #34495e;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Estilos para as tabelas */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.users-table th,
+.users-table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.users-table th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+  color: #34495e;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.users-table tbody tr:nth-child(even) {
+  background-color: #fdfdfd;
+}
+
+.users-table tbody tr:hover {
+  background-color: #f1f5f8;
+}
+
+/* Célula de ações */
+.actions-cell {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.actions-cell button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+  color: white;
+}
+
+.actions-cell button {
+    background-color: #3498db; /* Azul para ações primárias */
+}
+.actions-cell button:hover {
+    opacity: 0.85;
+}
+
+.actions-cell button.danger {
+  background-color: #e74c3c; /* Vermelho para ações de perigo */
+}
+
+.actions-cell button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+/* Linha horizontal */
+hr {
+    border: none;
+    border-top: 1px solid #ecf0f1;
+    margin: 3rem 0;
 }

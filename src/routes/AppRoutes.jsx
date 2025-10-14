@@ -16,11 +16,14 @@ const AdminDashboard = React.lazy(() => import('../pages/AdminDashboard'));
 
 // ProtectedRoute component remains here as it's specific to routing logic
 const ProtectedRoute = () => {
-  const { session } = useAuth();
-  if (!session) {
-    return <Navigate to="/login" replace />;
+  const { session, loading } = useAuth();
+
+  if (loading) {
+    // Você pode mostrar um spinner de carregamento aqui se preferir
+    return null;
   }
-  return <Outlet />;
+
+  return session ? <Outlet /> : <Navigate to="/login" replace />;
 };
 
 const AppRoutes = () => {

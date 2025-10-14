@@ -7,47 +7,88 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Initial session check
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+    const setupAuth = async () => {
+      try {
+        // Verificação inicial da sessão
+        const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
 
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      if (_event === 'SIGNED_IN' && session) {
-        // User has just signed in, check their active status
+        if (sessionError) {
+          throw new Error(`Erro ao buscar sessão: ${sessionError.message}`);
+        }
+
+        setSession(initialSession);
+
+        if (initialSession) {
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', initialSession.user.id)
+            .single();
+
+          if (profileError) {
+            throw new Error(`Erro ao buscar perfil: ${profileError.message}`);
+          }
+          setUser(profile);
+        }
+      } catch (err) {
+        console.error("Falha na configuração de autenticação:", err);
+        toast.error(err.message || "Ocorreu um erro inesperado.");
+        // Garante que o usuário seja desconectado se algo der errado
+        await supabase.auth.signOut();
+        setSession(null);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    setupAuth();
+
+    // Listener para mudanças no estado de autenticação
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+      setLoading(true); // Mostra o spinner durante a transição
+      if (event === 'SIGNED_IN' && newSession) {
         const { data: profile, error } = await supabase
           .from('profiles')
-          .select('is_active')
-          .eq('id', session.user.id)
+          .select('*')
+          .eq('id', newSession.user.id)
           .single();
 
         if (error) {
-          console.error("Error fetching profile on login:", error);
-          // Log them out just in case something is wrong
+          console.error("Erro ao buscar perfil no login:", error);
           await supabase.auth.signOut();
           setSession(null);
+          setUser(null);
           toast.error("Erro ao verificar seu perfil. Tente novamente.");
         } else if (profile && !profile.is_active) {
-          // User is blocked, sign them out immediately
           await supabase.auth.signOut();
           setSession(null);
-          toast.error("Sua conta foi desativada por um administrador.", { duration: 6000 });
+          setUser(null);
+          toast.error("Sua conta foi desativada.", { duration: 5000 });
         } else {
-          // User is active, allow the session
-          setSession(session);
+          setSession(newSession);
+          setUser(profile);
         }
-      } else if (_event === 'SIGNED_OUT') {
-        // User signed out
+      } else if (event === 'SIGNED_OUT') {
         setSession(null);
-      } else {
-        // For other events, just update the session
-        setSession(session);
+        setUser(null);
+      } else if (event === 'USER_UPDATED') {
+        // Atualiza o perfil se os dados do usuário mudarem
+        const { data: updatedProfile, error } = await supabase
+          .from('profiles')
+          .select('*')
+          .eq('id', newSession.user.id)
+          .single();
+        
+        if (!error) {
+          setUser(updatedProfile);
+        }
       }
+      setLoading(false);
     });
 
     return () => {
@@ -55,6 +96,7 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
+  // O spinner de carregamento agora é exibido condicionalmente
   if (loading) {
     return (
       <div className="loading-screen">
@@ -64,7 +106,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ session, loading }}>
+    <AuthContext.Provider value={{ session, user, loading }}>
       {children}
     </AuthContext.Provider>
   );
