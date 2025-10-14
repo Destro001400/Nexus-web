@@ -1,44 +1,42 @@
 import { useState, useCallback, useEffect } from 'react';
-import { supabase } from '../lib/supabaseClient';
-import { toast } from 'react-hot-toast';
-import { generateTitle } from '../lib/titleGenerator';
-import { categorizeConversation } from '../lib/categorizer';
+import { supabase } from '../lib/supabaseClient'; // Keep for real-time
+import {
+  fetchConversations as fetchConversationsApi,
+  saveConversation as saveConversationApi,
+  deleteConversation as deleteConversationApi,
+} from '../utils/conversationApi';
 
 export function useConversation(session) {
   const [conversations, setConversations] = useState([]);
   const [loading, setLoading] = useState(true);
+  const userId = session?.user?.id;
 
-  const fetchConversations = useCallback(async () => {
-    if (!session) return;
-    setLoading(true);
-    const { data, error } = await supabase
-      .from('conversations')
-      .select('id, created_at, title, category, model')
-      .eq('user_id', session.user.id)
-      .order('created_at', { ascending: false });
-
-    if (error) {
-      toast.error('Falha ao buscar o histórico de conversas.');
-      console.error('Error fetching conversations:', error);
-    } else {
-      setConversations(data || []);
-    }
-    setLoading(false);
-  }, [session]);
-
-  // Effect to fetch initial data and subscribe to real-time changes
   useEffect(() => {
-    if (!session) return;
+    if (!userId) {
+      setLoading(false);
+      return;
+    }
 
-    fetchConversations();
+    setLoading(true);
+    fetchConversationsApi(userId)
+      .then(setConversations)
+      .catch(() => { /* Error is toasted in the API util */ })
+      .finally(() => setLoading(false));
 
     const channel = supabase
-      .channel(`public:conversations:user_id=eq.${session.user.id}`)
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: 'conversations', filter: `user_id=eq.${session.user.id}` },
+      .channel(`public:conversations:user_id=eq.${userId}`)
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'conversations', filter: `user_id=eq.${userId}` },
         (payload) => {
           console.log('Real-time change received!', payload);
-          fetchConversations(); // Refetch on any change
+          if (payload.eventType === 'INSERT') {
+            setConversations(prev => [payload.new, ...prev]);
+          } else if (payload.eventType === 'UPDATE') {
+            setConversations(prev => prev.map(c => c.id === payload.new.id ? { ...c, ...payload.new } : c));
+          } else if (payload.eventType === 'DELETE') {
+            setConversations(prev => prev.filter(c => c.id !== payload.old.id));
+          }
         }
       )
       .subscribe();
@@ -46,59 +44,28 @@ export function useConversation(session) {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [session, fetchConversations]);
+  }, [userId]);
 
   const saveConversation = useCallback(async (messages, conversationId, model) => {
-    // The real-time subscription will handle UI updates, so we don't need to call fetchConversations() here.
-    if (!session) return null;
-
-    try {
-      const dataToSave = { messages, updated_at: new Date() };
-
-      if (conversationId) {
-        await supabase.from('conversations').update(dataToSave).eq('id', conversationId);
-        return conversationId;
-      } else {
-        const title = await generateTitle(messages);
-        const category = await categorizeConversation(messages);
-        dataToSave.title = title;
-        dataToSave.category = category;
-        dataToSave.model = model;
-
-        const { data, error } = await supabase
-          .from('conversations')
-          .insert([{ ...dataToSave, user_id: session.user.id }])
-          .select('id')
-          .single();
-
-        if (error) throw error;
-        return data.id;
-      }
-    } catch (error) {
-      toast.error('Erro ao salvar a conversa.');
-      console.error('Error saving conversation:', error);
-      return null;
-    }
-  }, [session]);
+    if (!userId) return null;
+    // The API function will handle UI updates (toasts) and return the id.
+    // The real-time subscription will handle the state update.
+    return await saveConversationApi(userId, messages, conversationId, model);
+  }, [userId]);
 
   const deleteConversation = useCallback(async (conversationId) => {
-    // The real-time subscription will handle UI updates.
-    if (!session) return;
-    if (!window.confirm("Tem certeza que quer apagar esta conversa?")) return;
-
+    if (!userId) return;
     try {
-      await supabase.from('conversations').delete().eq('id', conversationId);
-      toast.success('Conversa apagada.');
+      await deleteConversationApi(conversationId);
     } catch (error) {
-      toast.error('Erro ao apagar a conversa.');
-      console.error('Error deleting conversation:', error);
+      // Errors are handled in the API util
     }
-  }, [session]);
+  }, [userId]);
 
-  return { 
-    conversations, 
-    loadingConversations: loading, 
-    saveConversation, 
-    deleteConversation 
+  return {
+    conversations,
+    loadingConversations: loading,
+    saveConversation,
+    deleteConversation,
   };
 }

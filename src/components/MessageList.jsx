@@ -9,7 +9,7 @@ import { Bot, User, Loader2, Copy, Check } from 'lucide-react';
 
 // Note: Chat.css is imported in Chat.jsx, so no need to import it here.
 
-const CodeBlock = ({ node, inline, className, children, ...props }) => {
+const CodeBlock = ({ inline, className, children, ...props }) => {
     const { theme } = useTheme();
     const [isCopied, setIsCopied] = React.useState(false);
     const match = /language-(\w+)/.exec(className || '');
@@ -54,7 +54,7 @@ const MessageList = ({ messages, isLoading, currentStatus, messagesEndRef, conve
             <ReactMarkdown
               components={{
                 code: CodeBlock,
-                table: ({node, ...props}) => (
+                table: ({...props}) => (
                   <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
                     <table style={{ width: '100%' }} {...props} />
                   </div>

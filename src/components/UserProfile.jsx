@@ -1,17 +1,20 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../lib/AuthContext'; // Import useAuth
 import { toast } from 'react-hot-toast';
 import ActivityHistory from './ActivityHistory';
 import './UserProfile.css';
 
-export default function UserProfile({ session }) {
+export default function UserProfile() {
+  const { session } = useAuth(); // Use the hook
   const [profile, setProfile] = useState({ username: '', email: '', avatar_url: '' });
   const [loading, setLoading] = useState(true);
   const [avatarFile, setAvatarFile] = useState(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
+      if (!session) return;
       setLoading(true);
       const { data, error } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
       if (error) {
@@ -40,6 +43,7 @@ export default function UserProfile({ session }) {
 
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!session) return;
     setLoading(true);
     let avatar_url = profile.avatar_url;
     if (avatarFile) {
@@ -65,6 +69,10 @@ export default function UserProfile({ session }) {
     }
     setLoading(false);
   };
+
+  if (!session) {
+    return <div>Carregando...</div>; // Or a redirect, or null
+  }
 
   return (
     <div className="user-profile user-profile">

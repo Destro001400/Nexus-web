@@ -42,6 +42,7 @@ export function TutorialProvider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTutorial() {
   const context = useContext(TutorialContext);
   if (!context) {

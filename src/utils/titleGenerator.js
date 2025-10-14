@@ -1,4 +1,4 @@
-import { genAI } from './geminiClient';
+import { genAI } from '../lib/geminiClient';
 
 /**
  * Generates a short, objective title for a conversation based on its first few messages.

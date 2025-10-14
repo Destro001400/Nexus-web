@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabaseClient';
+import { useAuth } from '../lib/AuthContext';
 import { toast } from 'react-hot-toast';
 import {
   Chart as ChartJS,
@@ -31,7 +32,8 @@ ChartJS.register(
 
 const ADMIN_EMAIL = import.meta.env.VITE_ADMIN_EMAIL;
 
-export default function AdminDashboard({ session }) {
+export default function AdminDashboard() {
+  const { session } = useAuth();
   const [stats, setStats] = useState({ users: 0, conversations: 0, feedbacks: 0 });
   const [loading, setLoading] = useState(true);
   const [conversationsByDay, setConversationsByDay] = useState([]);

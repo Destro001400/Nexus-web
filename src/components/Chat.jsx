@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+import { useAuth } from '../lib/AuthContext'; // Import useAuth
+import { useConversationContext } from '../lib/ConversationContext';
 import { useChat } from '../hooks/useChat';
 import Personas from './Personas';
-import ChatHeader from './ChatHeader';
 import ChatInput from './ChatInput';
 import WelcomeScreen from './WelcomeScreen';
 import MessageList from './MessageList';
-import { exportAsTxt, exportAsMarkdown, exportAsPdf } from '../lib/exportConversation';
 import { toast } from 'react-hot-toast';
 import { FileText, Music, Code, Globe } from 'lucide-react';
 import './Chat.css';
@@ -17,7 +17,9 @@ const promptSuggestions = [
     { icon: <Globe size={18} />, text: "Quais as últimas notícias sobre..." },
 ];
 
-export default function Chat({ session, conversationId, saveConversation, onConversationCreated, onToggleSidebar, isProUser }) {
+export default function Chat({ conversationId, onConversationCreated, isProUser }) {
+    const { session } = useAuth(); // Use the hook
+    const { saveConversation } = useConversationContext();
     const [selectedModel, setSelectedModel] = useState('flash');
     const [activePersona, setActivePersona] = useState('general');
     const messagesEndRef = useRef(null);
@@ -60,19 +62,8 @@ export default function Chat({ session, conversationId, saveConversation, onConv
         setInput(suggestionText);
     };
 
-    const handleExport = () => {
-        if (!messages.length) return toast('Nada para exportar!');
-        const option = window.prompt('Exportar como: 1) TXT  2) Markdown  3) PDF', '1');
-        if (option === '1') exportAsTxt(messages);
-        else if (option === '2') exportAsMarkdown(messages);
-        else if (option === '3') exportAsPdf(messages);
-        else toast('Exportação cancelada.');
-    };
-
     return (
         <div className="chat-app">
-            <ChatHeader session={session} onToggleSidebar={onToggleSidebar} onExport={handleExport} />
-            
             {!conversationId && (
                 <Personas activePersona={activePersona} onSelectPersona={setActivePersona} />
             )}

@@ -47,5 +47,9 @@
     "rollup-plugin-visualizer": "^6.0.4",
     "vite": "^5.1.0",
     "vitest": "^1.2.2"
+  },
+  "overrides": {
+    "esbuild": "^0.25.0",
+    "prismjs": "^1.30.0"
   }
 }
