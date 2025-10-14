@@ -73,6 +73,10 @@
     display: block; /* Shown on mobile */
   }
 
+  .logo-container {
+    display: none; /* Hide logo on smaller screens */
+  }
+
   .app-title {
     display: none; /* Hide title on smaller screens to save space */
   }
