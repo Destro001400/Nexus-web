@@ -1,10 +1,9 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
 import { useConversation } from '../hooks/useConversation';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 const ConversationContext = createContext();
 
-export const useConversationContext = () => useContext(ConversationContext);
 
 export const ConversationProvider = ({ children }) => {
   const { session } = useAuth();

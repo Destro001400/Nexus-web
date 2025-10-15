@@ -1,10 +1,10 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { supabase } from '../lib/supabaseClient';
-import { useAuth } from '../lib/AuthContext';
-import { useConversationContext } from '../lib/ConversationContext';
+import { useAuth } from '../hooks/useAuth';
+import { useConversationContext } from '../hooks/useConversationContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Header from '../components/Header';
 import { exportAsTxt, exportAsMarkdown, exportAsPdf } from '../lib/exportConversation';

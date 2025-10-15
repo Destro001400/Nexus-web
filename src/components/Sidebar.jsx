@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../lib/ThemeContext';
-import { useConversationContext } from '../lib/ConversationContext';
+import { useConversationContext } from '../hooks/useConversationContext';
 import { Plus, Trash2, X, Search, Star, Crown, Loader, User, Moon, Sun, FileText, HelpCircle } from 'lucide-react';
 import CategoryIcon from './CategoryIcon';
 import ThemeToggle from './ThemeToggle';

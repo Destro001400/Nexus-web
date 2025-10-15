@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { useAuth } from '../lib/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { toast } from 'react-hot-toast';
 import './AdminDashboard.css';
 

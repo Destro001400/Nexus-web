@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabaseClient';
-import { useAuth } from '../lib/AuthContext'; // Import useAuth
+import { useAuth } from '../hooks/useAuth'; // Import useAuth
 import { toast } from 'react-hot-toast';
 import ActivityHistory from './ActivityHistory';
 import './UserProfile.css';

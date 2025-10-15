@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
-import { useAuth } from '../lib/AuthContext'; // Import useAuth
-import { useConversationContext } from '../lib/ConversationContext';
+import { useAuth } from '../hooks/useAuth'; // Import useAuth
+import { useConversationContext } from '../hooks/useConversationContext';
 import { useChat } from '../hooks/useChat';
 import Personas from './Personas';
 import ChatInput from './ChatInput';
 import WelcomeScreen from './WelcomeScreen';
 import MessageList from './MessageList';
-import { toast } from 'react-hot-toast';
+
 import { FileText, Music, Code, Globe } from 'lucide-react';
 import './Chat.css';
 

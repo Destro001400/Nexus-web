@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Routes, Route, Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../lib/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import { ConversationProvider } from '../lib/ConversationContext';
 
 // Page and Layout Imports

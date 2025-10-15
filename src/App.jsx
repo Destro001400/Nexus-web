@@ -2,7 +2,7 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useAuth } from './lib/AuthContext';
+
 import { TutorialProvider } from './lib/TutorialContext';
 import ErrorBoundary from './components/ErrorBoundary';
 import Tutorial from './components/Tutorial';
