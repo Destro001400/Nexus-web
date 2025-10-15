@@ -15,7 +15,7 @@ const Chat = React.lazy(() => import('../components/Chat'));
 const Sidebar = React.lazy(() => import('../components/Sidebar'));
 
 const MainAppLayout = React.memo(() => {
-  const { session } = useAuth();
+  const { session, user } = useAuth(); // Utiliza o usuário do contexto
   const { activeConversation } = useConversationContext();
   const navigate = useNavigate();
   const [activeConversationId, setActiveConversationId] = useState(null);
@@ -28,37 +28,26 @@ const MainAppLayout = React.memo(() => {
     return window.innerWidth > BREAKPOINTS.MOBILE;
   });
 
-  const [userProfile, setUserProfile] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.SIDEBAR_OPEN, JSON.stringify(isSidebarOpen));
   }, [isSidebarOpen]);
 
-  const fetchUserProfile = useCallback(async () => {
-    if (!session) return;
-    const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
-    setUserProfile(data);
-  }, [session]);
-
-  useEffect(() => {
-    fetchUserProfile();
-  }, [fetchUserProfile]);
-
   useEffect(() => {
     const checkPaymentStatus = async () => {
       const searchParams = new URLSearchParams(location.search);
-      if (searchParams.get(QUERY_PARAMS.PAYMENT_SUCCESS) === 'true') {
+      if (searchParams.get(QUERY_PARAMS.PAYMENT_SUCCESS) === 'true' && session?.user?.id) {
+        // A lógica de atualização de perfil pode ser movida para um local mais centralizado se necessário
         await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
         toast.success(UI_TEXTS.PRO_UPGRADE_SUCCESS);
-        fetchUserProfile();
+        // Idealmente, o contexto de autenticação se atualizaria sozinho.
+        // Se não, uma função de atualização de usuário no contexto seria útil.
         window.history.replaceState(null, '', '/chat');
       }
     };
-    if (session?.user?.id) {
-      checkPaymentStatus();
-    }
-  }, [location, session?.user?.id, fetchUserProfile]);
+    checkPaymentStatus();
+  }, [location, session?.user?.id]);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -91,7 +80,7 @@ const MainAppLayout = React.memo(() => {
             onClose={() => setSidebarOpen(false)}
             activeConversationId={activeConversationId}
             onSelectConversation={setActiveConversationId}
-            isProUser={userProfile?.is_pro}
+            isProUser={user?.is_pro}
           />
         </React.Suspense>
         <main className="content-area">
@@ -100,7 +89,7 @@ const MainAppLayout = React.memo(() => {
               key={activeConversationId || 'new'}
               conversationId={activeConversationId}
               onConversationCreated={setActiveConversationId}
-              isProUser={userProfile?.is_pro}
+              isProUser={user?.is_pro}
             />
           </React.Suspense>
         </main>
