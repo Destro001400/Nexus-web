@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const setupAuth = async () => {
       try {
-        // Verificação inicial da sessão
         const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
 
         if (sessionError) {
@@ -30,27 +29,25 @@ export const AuthProvider = ({ children }) => {
             .single();
 
           if (profileError) {
-            throw new Error(`Erro ao buscar perfil: ${profileError.message}`);
+            console.warn(`Perfil não encontrado para o usuário ${initialSession.user.id}. Tratando como ativo por padrão.`);
+            setUser(null); // O app deve ser capaz de lidar com um perfil nulo
+          } else {
+            setUser(profile);
           }
-          setUser(profile);
         }
       } catch (err) {
-        console.error("Falha na configuração de autenticação:", err);
-        toast.error(err.message || "Ocorreu um erro inesperado.");
-        // Garante que o usuário seja desconectado se algo der errado
-        await supabase.auth.signOut();
-        setSession(null);
-        setUser(null);
+        console.error("Falha crítica na configuração de autenticação:", err);
+        toast.error("Falha ao iniciar a autenticação. Tente recarregar a página.");
       } finally {
-        setLoading(false);
+        setLoading(false); // Garante que o carregamento termine mesmo em caso de erro
       }
     };
 
     setupAuth();
 
-    // Listener para mudanças no estado de autenticação
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
-      setLoading(true); // Mostra o spinner durante a transição
+      setLoading(true);
+
       if (event === 'SIGNED_IN' && newSession) {
         const { data: profile, error } = await supabase
           .from('profiles')
@@ -59,35 +56,41 @@ export const AuthProvider = ({ children }) => {
           .single();
 
         if (error) {
-          console.error("Erro ao buscar perfil no login:", error);
-          await supabase.auth.signOut();
-          setSession(null);
-          setUser(null);
-          toast.error("Erro ao verificar seu perfil. Tente novamente.");
+          console.error("Erro ao buscar perfil no login. Tratando como ativo por padrão:", error);
+          setUser(null); // A sessão é válida, mas o perfil não foi carregado
         } else if (profile && !profile.is_active) {
+          toast.error("Sua conta foi desativada.", { duration: 5000 });
           await supabase.auth.signOut();
           setSession(null);
           setUser(null);
-          toast.error("Sua conta foi desativada.", { duration: 5000 });
+          setLoading(false);
+          return; // Interrompe a execução para evitar estados inconsistentes
         } else {
-          setSession(newSession);
           setUser(profile);
         }
+        setSession(newSession);
+
       } else if (event === 'SIGNED_OUT') {
         setSession(null);
         setUser(null);
-      } else if (event === 'USER_UPDATED') {
-        // Atualiza o perfil se os dados do usuário mudarem
+      } else if (event === 'USER_UPDATED' && newSession) {
         const { data: updatedProfile, error } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', newSession.user.id)
           .single();
         
-        if (!error) {
+        if (error) {
+          console.error("Erro ao atualizar o perfil do usuário:", error);
+        } else {
           setUser(updatedProfile);
         }
+        setSession(newSession); // Garante que a sessão seja atualizada
+      } else {
+        // Para outros eventos, apenas atualiza a sessão se ela existir
+        setSession(newSession);
       }
+      
       setLoading(false);
     });
 
@@ -96,7 +99,6 @@ export const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  // O spinner de carregamento agora é exibido condicionalmente
   if (loading) {
     return (
       <div className="loading-screen">
