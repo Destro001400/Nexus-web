@@ -35,6 +35,7 @@ const DocumentationPage = () => {
 
                 <h2>3. Guia Detalhado das Personas</h2>
                 <p>Esta seção aprofunda a capacidade e a aplicação de cada Persona disponível na plataforma.</p>
+                
                 <h3>3.1 Persona: Pesquisador Acadêmico (Academic Researcher)</h3>
                 <p>Esta Persona foi otimizada para o rigor do ambiente acadêmico e científico.</p>
                 <p><strong>Descrição:</strong> Atua como um assistente de pesquisa virtual, treinado para compreender e processar informações de artigos científicos, teses e publicações complexas.</p>
@@ -76,6 +77,7 @@ const DocumentationPage = () => {
 
                 <h2>4. Nexus Pro & Ultimate: Apoiando o Futuro da Plataforma</h2>
                 <p>O Nexus é um projeto independente, impulsionado pela paixão pela tecnologia e pelo apoio de nossa comunidade. Para garantir seu desenvolvimento contínuo e financiar a complexa jornada de treinar nosso próprio modelo de linguagem, oferecemos níveis de apoio através da plataforma Apoia.se.</p>
+                
                 <h3>4.1 Nível: Nexus Pro (R$ 15/mês)</h3>
                 <p>O nível Pro é projetado para usuários que buscam a máxima performance da plataforma.</p>
                 <ul>
@@ -83,6 +85,7 @@ const DocumentationPage = () => {
                     <li>Suporte Prioritário: Seus feedbacks e solicitações de suporte são tratados com prioridade por nossa equipe.</li>
                     <li>Impacto Direto: Sua contribuição mensal é fundamental para cobrir os custos operacionais (servidores, APIs) e nos permite dedicar mais tempo ao desenvolvimento.</li>
                 </ul>
+
                 <h3>4.2 Nível: Nexus Ultimate (R$ 50/mês)</h3>
                 <p>O nível Ultimate é para os apoiadores que desejam maximizar seu impacto e se tornar parceiros estratégicos no crescimento do Nexus.</p>
                 <ul>
@@ -93,11 +96,14 @@ const DocumentationPage = () => {
 
                 <h2>5. Política de Transparência, Processamento de Dados e Aprimoramento de Modelo</h2>
                 <p><em>Data de Efetivação: 11 de Outubro de 2025</em></p>
+
                 <h3>5.1 Introdução e Escopo</h3>
                 <p>Esta política detalha os princípios operacionais, o processamento de dados e os termos de uso relativos à plataforma Nexus AI ("Nexus", "Plataforma", "Serviço"). Nosso compromisso fundamental é com a transparência total perante nossos usuários ("Usuário", "Você"). Ao utilizar os serviços do Nexus, você reconhece ter lido, compreendido e concordado com os termos aqui descritos.</p>
+
                 <h3>5.2 Arquitetura Tecnológica e Provisão do Serviço Atual</h3>
                 <p>Para assegurar um serviço de alta performance, estabilidade e qualidade superior desde sua concepção, a atual iteração da plataforma Nexus opera utilizando a infraestrutura e os modelos de linguagem fornecidos pela API do Google Gemini.</p>
                 <p>Esta é uma decisão estratégica que nos permite focar no desenvolvimento da experiência do usuário, na arquitetura da plataforma e, mais crucialmente, na curadoria dos datasets especializados que formarão a base de nosso futuro modelo proprietário. Consequentemente, as interações, prompts e solicitações enviadas por você à plataforma são processados pelos servidores do Google para a geração das respostas. O Nexus atua como a interface inteligente e a camada de aplicação que gerencia essa interação.</p>
+
                 <h3>5.3 Coleta e Utilização de Dados para o Desenvolvimento do Modelo Proprietário</h3>
                 <p>O objetivo primário e a missão de longo prazo da Nexus AI Corp. é o desenvolvimento de um modelo de linguagem proprietário, otimizado e especializado para os domínios de Pesquisa Acadêmica, Criação de Textos e Composição Musical. A concretização deste objetivo depende intrinsecamente da análise de um vasto volume de interações contextuais.</p>
                 <p><strong>Consentimento de Uso:</strong> Ao utilizar a plataforma Nexus, você concede consentimento explícito para que os dados de suas conversas (prompts e respostas geradas) sejam coletados, armazenados e utilizados para fins de pesquisa, desenvolvimento e treinamento dos algoritmos de inteligência artificial do Nexus.</p>
@@ -107,6 +113,7 @@ const DocumentationPage = () => {
                     <li>Mitigação de Vieses e Erros: Identificar, analisar e corrigir vieses sistêmicos e padrões de erro no comportamento do modelo.</li>
                     <li>Aprimoramento das "Personas": Aumentar a especialização contextual de cada Persona, garantindo que sua performance exceda a de modelos generalistas.</li>
                 </ul>
+
                 <h3>5.4 Compromisso com a Privacidade e Anonimização de Dados</h3>
                 <p>A privacidade de nossos usuários é um pilar não negociável de nossa operação. Embora utilizemos os dados das conversas para treinamento, implementamos protocolos rigorosos para proteger a identidade dos usuários.</p>
                 <p><strong>Processo de Anonimização:</strong> Antes de serem incorporados a qualquer dataset de treinamento, os dados passam por um processo de anonimização. Este processo visa remover ou dissociar quaisquer Informações de Identificação Pessoal (PII - Personally Identifiable Information), como nomes, endereços de e-mail, números de telefone ou outros dados sensíveis que possam ter sido inseridos durante uma conversa. Nosso foco analítico reside nos padrões linguísticos e estruturais da conversa, não na identidade de quem a gerou.</p>
@@ -114,9 +121,12 @@ const DocumentationPage = () => {
 
                 <h2>6. Contato e Suporte Técnico</h2>
                 <p>Nosso compromisso é oferecer uma plataforma robusta e uma experiência de usuário excepcional. Se você encontrar qualquer problema técnico, tiver dúvidas que não foram respondidas nesta documentação, ou desejar fornecer feedback e sugestões para futuras versões do Nexus, nossa equipe está disponível para ajudar.</p>
+                
                 <h3>6.1 Canal de Comunicação Oficial</h3>
                 <p>Para todas as solicitações de suporte, por favor, entre em contato conosco através do nosso e-mail oficial:</p>
                 <p><strong>E-mail de Suporte:</strong> <a href="mailto:Nexus.ai.corporation@gmail.com">Nexus.ai.corporation@gmail.com</a></p>
+                <p>Ao nos contatar, por favor, forneça o máximo de detalhes possível sobre sua solicitação (incluindo capturas de tela, se aplicável) para que possamos oferecer uma resolução rápida e eficaz.</p>
+
                 <h3>6.2 Suporte Prioritário</h3>
                 <p>Lembramos que os apoiadores dos níveis Nexus Pro e Nexus Ultimate têm suas solicitações tratadas com prioridade em nossa fila de suporte, como parte dos benefícios de seu apoio contínuo ao projeto.</p>
             </main>

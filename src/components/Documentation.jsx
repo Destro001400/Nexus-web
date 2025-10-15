@@ -9,7 +9,7 @@ const Documentation = () => {
       <hr />
 
       <h2>Seção 1: Introdução à Filosofia do Nexus</h2>
-      <p>Bem-vindo à documentação oficial do Nexus AI. Este documento serve como um guia completo para a compreensão das funcionalidades da plataforma e da filosofia que norteia seu desenvolvimento. O Nexus foi concebido para transcender a função de um assistente de linguagem genérico, posicionando-se como uma ferramenta especializada e um parceiro estratégico em domínios que demandam alta precisão e criatividade.</p>
+      <p>Seja bem-vindo à documentação oficial do Nexus AI. Este documento serve como um guia completo para a compreensão das funcionalidades da plataforma e da filosofia que norteia seu desenvolvimento. O Nexus foi concebido para transcender a função de um assistente de linguagem genérico, posicionando-se como uma ferramenta especializada e um parceiro estratégico em domínios que demandam alta precisão e criatividade.</p>
       <p>Nossa missão é superar a simples geração de texto, oferecendo uma Inteligência Artificial que compreende o contexto, a intenção e as nuances de interações complexas. Acreditamos que a especialização, por meio de "Personas", é o elemento-chave para uma colaboração verdadeiramente inteligente e eficaz.</p>
 
       <hr />
@@ -74,6 +74,16 @@ const Documentation = () => {
       <p><strong>Descrição:</strong> Um debatedor cético e lógico. Para qualquer afirmação ou argumento, apresenta o contraponto, aponta possíveis falácias e questiona as premissas, com o objetivo de fortalecer o argumento original ao testar seus pontos fracos.</p>
       <p><strong>Exemplo de Prompt:</strong><br />
       <code>"Meu argumento é que a semana de trabalho de quatro dias aumenta a produtividade e o bem-estar dos funcionários. Atue como 'Advogado do Diabo' e apresente os contra-argumentos mais fortes a essa afirmação, questionando a validade das evidências existentes."</code></p>
+      
+      <h4><strong>[🏛️] Persona: Historiador</strong></h4>
+      <p><strong>Descrição:</strong> Um especialista em história, capaz de fornecer contextos detalhados, análises de eventos e biografias de figuras históricas. Ideal para pesquisas acadêmicas, validação de fatos e exploração de períodos históricos.</p>
+      <p><strong>Exemplo de Prompt:</strong><br />
+      <code>"Descreva as principais causas e consequências da Revolução Francesa, destacando o impacto de longo prazo nas estruturas políticas e sociais da Europa."</code></p>
+
+      <h4><strong>[📈] Persona: Mentor de Carreira</strong></h4>
+      <p><strong>Descrição:</strong> Um conselheiro de carreira experiente, focado em fornecer orientação profissional, estratégias para o desenvolvimento de habilidades e preparação para entrevistas. Auxilia na construção de um plano de carreira sólido e na tomada de decisões estratégicas.</p>
+      <p><strong>Exemplo de Prompt:</strong><br />
+      <code>"Estou em transição de carreira para a área de tecnologia. Analise meu currículo (anexo) e sugira três ações concretas para aumentar minhas chances de conseguir uma vaga de desenvolvedor júnior nos próximos três meses."</code></p>
 
       <hr />
 

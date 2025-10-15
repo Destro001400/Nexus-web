@@ -51,7 +51,7 @@ export function useStreaming({ session, conversationId, saveConversation, isProU
 
       const modelToUse = conversationId ? (await supabase.from('conversations').select('model').eq('id', conversationId).single()).data.model : selectedModel;
       const personaPrompt = personas[activePersona]?.prompt;
-      const modelName = modelToUse === 'pro' && isProUser ? 'gemini-2.5-Flash' : 'gemini-2.5-flash-lite';
+      const modelName = modelToUse === 'pro' && isProUser ? 'gemini-2.5-pro' : 'gemini-2.5-flash';
 
       const model = genAI.getGenerativeModel({
         model: modelName,
