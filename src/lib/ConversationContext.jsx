@@ -2,7 +2,7 @@ import React, { createContext } from 'react';
 import { useConversation } from '../hooks/useConversation';
 import { useAuth } from '../hooks/useAuth';
 
-const ConversationContext = createContext();
+export const ConversationContext = createContext();
 
 
 export const ConversationProvider = ({ children }) => {
