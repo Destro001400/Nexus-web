@@ -12,7 +12,6 @@ import UserProfile from '../components/UserProfile';
 import MainAppLayout from '../layouts/MainAppLayout';
 
 // Lazy-loaded components
-const AdminDashboard = React.lazy(() => import('../pages/AdminDashboard'));
 
 // ProtectedRoute component remains here as it's specific to routing logic
 const ProtectedRoute = () => {
@@ -44,11 +43,7 @@ const AppRoutes = () => {
           element={<ConversationProvider><MainAppLayout /></ConversationProvider>}
         />
         <Route path="/profile" element={<UserProfile />} />
-        <Route path="/admin" element={
-          <React.Suspense fallback={<div style={{padding:20}}>Carregando...</div>}>
-            <AdminDashboard />
-          </React.Suspense>
-        } />
+
       </Route>
     </Routes>
   );

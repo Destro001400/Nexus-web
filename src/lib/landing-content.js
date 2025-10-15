@@ -77,6 +77,6 @@ export const landingContent = {
     button: "Quero Apoiar o Projeto"
   },
   footer: {
-    text: "© 2025 Nexus AI. Todos os direitos reservados."
+    text: "© 2025 Nexus AI corp. Todos os direitos reservados."
   }
 };
