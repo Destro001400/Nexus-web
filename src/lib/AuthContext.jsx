@@ -8,87 +8,32 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   const [session, setSession] = useState(null);
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Começa como true na montagem inicial
 
   useEffect(() => {
-    const setupAuth = async () => {
-      try {
-        const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
-
-        if (sessionError) {
-          throw new Error(`Erro ao buscar sessão: ${sessionError.message}`);
-        }
-
-        setSession(initialSession);
-
-        if (initialSession) {
-          const { data: profile, error: profileError } = await supabase
-            .from('profiles')
-            .select('*')
-            .eq('id', initialSession.user.id)
-            .single();
-
-          if (profileError) {
-            console.warn(`Perfil não encontrado para o usuário ${initialSession.user.id}. Tratando como ativo por padrão.`);
-            setUser(null); // O app deve ser capaz de lidar com um perfil nulo
-          } else {
-            setUser(profile);
-          }
-        }
-      } catch (err) {
-        console.error("Falha crítica na configuração de autenticação:", err);
-        toast.error("Falha ao iniciar a autenticação. Tente recarregar a página.");
-      } finally {
-        setLoading(false); // Garante que o carregamento termine mesmo em caso de erro
-      }
-    };
-
-    setupAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       setLoading(true);
+      setSession(session);
 
-      if (event === 'SIGNED_IN' && newSession) {
+      if (session) {
         const { data: profile, error } = await supabase
           .from('profiles')
           .select('*')
-          .eq('id', newSession.user.id)
+          .eq('id', session.user.id)
           .single();
 
         if (error) {
-          console.error("Erro ao buscar perfil no login. Tratando como ativo por padrão:", error);
-          setUser(null); // A sessão é válida, mas o perfil não foi carregado
+          console.error("Erro ao buscar perfil. O usuário será tratado como ativo, mas sem dados de perfil:", error);
+          setUser(null);
         } else if (profile && !profile.is_active) {
           toast.error("Sua conta foi desativada.", { duration: 5000 });
           await supabase.auth.signOut();
-          setSession(null);
-          setUser(null);
-          setLoading(false);
-          return; // Interrompe a execução para evitar estados inconsistentes
+          // onAuthStateChange será acionado novamente com SIGNED_OUT
         } else {
           setUser(profile);
         }
-        setSession(newSession);
-
-      } else if (event === 'SIGNED_OUT') {
-        setSession(null);
-        setUser(null);
-      } else if (event === 'USER_UPDATED' && newSession) {
-        const { data: updatedProfile, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', newSession.user.id)
-          .single();
-        
-        if (error) {
-          console.error("Erro ao atualizar o perfil do usuário:", error);
-        } else {
-          setUser(updatedProfile);
-        }
-        setSession(newSession); // Garante que a sessão seja atualizada
       } else {
-        // Para outros eventos, apenas atualiza a sessão se ela existir
-        setSession(newSession);
+        setUser(null);
       }
       
       setLoading(false);
