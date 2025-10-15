@@ -5,6 +5,7 @@ import { useStreaming } from './useStreaming';
 export function useChat(session, conversationId, saveConversation, isProUser) {
   const { messages, setMessages, loadConversationHistory, isLoadingHistory } = useMessageHistory(conversationId);
   const [input, setInput] = useState('');
+  const [image, setImage] = useState(null);
 
   const {
     isLoading: isLoadingSend,
@@ -22,18 +23,22 @@ export function useChat(session, conversationId, saveConversation, isProUser) {
   });
 
   const handleSend = async (activePersona, selectedModel) => {
-    if (!input.trim()) return null;
+    if (!input.trim() && !image) return null;
     
     const originalInput = input;
+    const originalImage = image;
     setInput('');
+    setImage(null);
 
-    return await streamSend(activePersona, selectedModel, originalInput);
+    return await streamSend(activePersona, selectedModel, originalInput, originalImage);
   };
 
   return {
     messages,
     input,
     setInput,
+    image,
+    setImage,
     isLoading: isLoadingHistory || isLoadingSend,
     isStreaming,
     currentStatus,

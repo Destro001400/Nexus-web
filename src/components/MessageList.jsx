@@ -51,6 +51,11 @@ const MessageList = ({ messages, isLoading, currentStatus, messagesEndRef, conve
             {message.role === 'user' ? <User size={20} /> : <Bot size={20} />}
           </div>
           <div className="message-content">
+            {message.image && (
+              <div className="message-image-container">
+                <img src={message.image} alt="Upload do usuário" className="message-image" />
+              </div>
+            )}
             <ReactMarkdown
               components={{
                 code: CodeBlock,

@@ -28,6 +28,8 @@ export default function Chat({ conversationId, onConversationCreated, isProUser 
         messages,
         input,
         setInput,
+        image,
+        setImage,
         isLoading,
         isStreaming,
         currentStatus,
@@ -92,6 +94,8 @@ export default function Chat({ conversationId, onConversationCreated, isProUser 
             <ChatInput
                 input={input}
                 setInput={setInput}
+                image={image}
+                setImage={setImage}
                 handleSend={handleSendClick}
                 handleKeyPress={handleKeyPress}
                 isStreaming={isStreaming}
