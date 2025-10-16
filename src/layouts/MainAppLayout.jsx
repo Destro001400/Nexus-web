@@ -34,21 +34,6 @@ const MainAppLayout = React.memo(() => {
     localStorage.setItem(STORAGE_KEYS.SIDEBAR_OPEN, JSON.stringify(isSidebarOpen));
   }, [isSidebarOpen]);
 
-  useEffect(() => {
-    const checkPaymentStatus = async () => {
-      const searchParams = new URLSearchParams(location.search);
-      if (searchParams.get(QUERY_PARAMS.PAYMENT_SUCCESS) === 'true' && session?.user?.id) {
-        // A lógica de atualização de perfil pode ser movida para um local mais centralizado se necessário
-        await supabase.from('profiles').update({ is_pro: true }).eq('id', session.user.id);
-        toast.success(UI_TEXTS.PRO_UPGRADE_SUCCESS);
-        // Idealmente, o contexto de autenticação se atualizaria sozinho.
-        // Se não, uma função de atualização de usuário no contexto seria útil.
-        window.history.replaceState(null, '', '/chat');
-      }
-    };
-    checkPaymentStatus();
-  }, [location, session?.user?.id]);
-
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate('/', { replace: true });
@@ -80,7 +65,7 @@ const MainAppLayout = React.memo(() => {
             onClose={() => setSidebarOpen(false)}
             activeConversationId={activeConversationId}
             onSelectConversation={setActiveConversationId}
-            isProUser={user?.is_pro}
+            userTier={user?.tier || 'free'}
           />
         </React.Suspense>
         <main className="content-area">
@@ -89,7 +74,7 @@ const MainAppLayout = React.memo(() => {
               key={activeConversationId || 'new'}
               conversationId={activeConversationId}
               onConversationCreated={setActiveConversationId}
-              isProUser={user?.is_pro}
+              isProUser={user?.tier === 'pro' || user?.tier === 'ultimate'}
             />
           </React.Suspense>
         </main>
