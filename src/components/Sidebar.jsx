@@ -2,14 +2,14 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../lib/ThemeContext';
 import { useConversationContext } from '../hooks/useConversationContext';
-import { Plus, Trash2, X, Search, Star, Crown, Loader, User, Moon, Sun, FileText, HelpCircle } from 'lucide-react';
+import { Plus, Trash2, X, Search, Star, Crown, Gem, Loader, User, FileText, HelpCircle } from 'lucide-react';
 import CategoryIcon from './CategoryIcon';
 import ThemeToggle from './ThemeToggle';
 import ConfirmationModal from './ConfirmationModal';
 import { UI_TEXTS } from '../constants/appConstants';
 import './Sidebar.css';
 
-export default function Sidebar({ isOpen, onClose, activeConversationId, onSelectConversation, isProUser }) {
+export default function Sidebar({ isOpen, onClose, activeConversationId, onSelectConversation, userTier }) {
     const { conversations, loadingConversations, deleteConversation } = useConversationContext();
 
     const [searchTerm, setSearchTerm] = useState('');
@@ -134,15 +134,31 @@ export default function Sidebar({ isOpen, onClose, activeConversationId, onSelec
                         </a>
                     </div>
 
-                    {isProUser ? (
+                    {userTier === 'ultimate' && (
+                        <div className="pro-badge ultimate-badge">
+                            <Gem size={16} />
+                            <span>Nexus Ultimate</span>
+                        </div>
+                    )}
+
+                    {userTier === 'pro' && (
                         <div className="pro-badge">
                             <Crown size={16} />
                             <span>Nexus Pro Ativo</span>
                         </div>
-                    ) : (
+                    )}
+
+                    {userTier === 'free' && (
                         <button className="button-base button-primary upgrade-button" onClick={handleUpgrade}>
                             <Star size={16} />
                             {UI_TEXTS.UPGRADE_TO_PRO}
+                        </button>
+                    )}
+
+                    {userTier === 'pro' && (
+                         <button className="button-base button-secondary upgrade-button" onClick={handleUpgrade}>
+                            <Gem size={16} />
+                            {UI_TEXTS.UPGRADE_TO_ULTIMATE}
                         </button>
                     )}
                 </div>

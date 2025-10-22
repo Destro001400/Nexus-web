@@ -11,6 +11,7 @@ export const UI_TEXTS = {
   EXPORT: "Exportar",
   SIGN_OUT: "Sair",
   UPGRADE_TO_PRO: "Upgrade para o Pro",
+  UPGRADE_TO_ULTIMATE: "Upgrade para Ultimate",
   
   // Modals & Confirmations
   DELETE_CONFIRM_TITLE: "Confirmar Exclusão",

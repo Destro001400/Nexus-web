@@ -101,6 +101,14 @@ export default function UserProfile() {
           Email:
           <input name="email" value={user.email} disabled readOnly />
         </label>
+        <div className="profile-tier-section">
+          <span>Nível da Assinatura:</span>
+          <span className={`tier-badge tier-${user.tier || 'free'}`}>
+            {user.tier === 'pro' && 'Nexus Pro'}
+            {user.tier === 'ultimate' && 'Nexus Ultimate'}
+            {(!user.tier || user.tier === 'free') && 'Gratuito'}
+          </span>
+        </div>
         <button type="submit" disabled={loading}>{loading ? 'Salvando...' : 'Salvar'}</button>
       </form>
       <ActivityHistory userId={user.id} />
