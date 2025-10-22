@@ -1,6 +1,6 @@
 import { genAI } from '../lib/geminiClient';
 
-const CATEGORIES = ['research', 'creative', 'music', 'code', 'general'];
+const CATEGORIES = ['Geral', 'Criatividade', 'Técnico', 'Aprendizado', 'Desenvolvimento'];
 
 // Use a specific model for this fast task
 const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
