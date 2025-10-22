@@ -16,110 +16,185 @@ const DocumentationPage = () => {
                 </Link>
             </header>
             <main className="documentation-content">
-                <h1>Documentação Oficial da Plataforma Nexus AI</h1>
+                <h1>Documentação Oficial do Nexus AI</h1>
 
-                <h2>1. Introdução à Arquitetura Nexus</h2>
-                <p>Bem-vindo à documentação oficial do Nexus AI. Este documento serve como um guia abrangente para a utilização, filosofia e arquitetura da nossa plataforma de inteligência artificial. O Nexus foi concebido não como um assistente generalista, mas como uma plataforma especializada, projetada para operar com maestria em domínios criativos e analíticos específicos.</p>
-                <p>Nossa missão é fornecer uma ferramenta que atue como uma extensão do intelecto de pesquisadores, escritores e músicos, oferecendo uma parceria criativa e técnica de alta performance. Diferentemente de modelos de linguagem convencionais, o Nexus é estruturado em torno de "Personas": instâncias do modelo fundamental, pré-ajustadas e otimizadas para raciocinar e interagir dentro de um contexto de especialização definido.</p>
+                <hr />
 
-                <h2>2. Guia de Início Rápido (First Steps)</h2>
-                <p>A interação com o Nexus foi projetada para ser intuitiva, permitindo que o usuário acesse rapidamente a expertise necessária.</p>
-                <h3>2.1 Iniciando uma Nova Conversa</h3>
-                <p>Toda interação começa na tela principal. O histórico de suas conversas anteriores é armazenado na barra lateral esquerda para fácil acesso e continuidade, permitindo a gestão de múltiplos projetos ou linhas de pesquisa simultaneamente.</p>
-                <h3>2.2 O Conceito de "Personas"</h3>
-                <p>As Personas são o diferencial estratégico do Nexus. Cada Persona representa uma configuração especializada da IA, pré-carregada com o contexto, o jargão e os modelos de raciocínio de uma área específica. A seleção de uma Persona não é um mero filtro de tópico; é uma instrução para que a IA adote um framework de pensamento completo.</p>
-                <h3>2.3 Seleção de Modelo: Nexus Flash e Nexus Pro</h3>
-                <p>Oferecemos diferentes níveis de complexidade e performance para atender às suas necessidades:</p>
-                <p><strong>Nexus Flash:</strong> Ideal para tarefas rápidas, resumos e interações que exigem agilidade.</p>
-                <p><strong>Nexus Pro:</strong> Utiliza um modelo mais robusto, projetado para tarefas que demandam maior profundidade criativa, análise complexa e geração de conteúdo extenso. O acesso ao Nexus Pro está disponível para os apoiadores do projeto (consulte a Seção 4).</p>
+                <h2>Seção 1: Introdução à Filosofia do Nexus</h2>
+                <p>Seja bem-vindo à documentação oficial do Nexus AI. Este documento serve como um guia completo para a compreensão das funcionalidades da plataforma e da filosofia que norteia seu desenvolvimento. O Nexus foi concebido para transcender a função de um assistente de linguagem genérico, posicionando-se como uma ferramenta especializada e um parceiro estratégico em domínios que demandam alta precisão e criatividade.</p>
+                <p>Nossa missão é superar a simples geração de texto, oferecendo uma Inteligência Artificial que compreende o contexto, a intenção e as nuances de interações complexas. Acreditamos que a especialização, por meio de "Personas", é o elemento-chave para uma colaboração verdadeiramente inteligente e eficaz.</p>
 
-                <h2>3. Guia Detalhado das Personas</h2>
-                <p>Esta seção aprofunda a capacidade e a aplicação de cada Persona disponível na plataforma.</p>
-                
-                <h3>3.1 Persona: Pesquisador Acadêmico (Academic Researcher)</h3>
-                <p>Esta Persona foi otimizada para o rigor do ambiente acadêmico e científico.</p>
-                <p><strong>Descrição:</strong> Atua como um assistente de pesquisa virtual, treinado para compreender e processar informações de artigos científicos, teses e publicações complexas.</p>
-                <p><strong>Capacidades Principais:</strong></p>
+                <hr />
+
+                <h2>Seção 2: Guia de Início Rápido</h2>
+                <p>A utilização do Nexus é um processo intuitivo, projetado para garantir acesso rápido e eficiente às suas capacidades.</p>
+
+                <h4><strong>2.1 Iniciando uma Nova Conversa</strong></h4>
+                <p>Toda interação se inicia na tela principal. O botão "Nova Conversa", localizado no topo da barra lateral (sidebar), redefine o contexto da sessão atual. Esta ação prepara a IA para uma nova interação, assegurando que diálogos anteriores não exerçam influência sobre as novas respostas.</p>
+
+                <h4><strong>2.2 O Conceito de "Personas": A Essência do Nexus</strong></h4>
+                <p>As <strong>Personas</strong> constituem o principal diferencial do Nexus. Em vez de uma interação com uma IA generalista, o utilizador seleciona um especialista virtual. Cada Persona ajusta o "raciocínio" fundamental do modelo, seu vocabulário, estilo e base de conhecimento para atuar com proficiência na área de atuação designada. A seleção de uma Persona não se trata de um mero filtro, mas de uma reconfiguração estratégica da IA para atender a uma necessidade específica.</p>
+
+                <h4><strong>2.3 Modelos Disponíveis: Flash vs. Pro</strong></h4>
+                <p>O Nexus oferece dois modelos de linguagem distintos para se adaptar às suas necessidades:</p>
                 <ul>
-                    <li>Síntese e Análise Crítica: Gera resumos detalhados, identifica argumentos centrais, metodologias e lacunas em trabalhos de pesquisa.</li>
-                    <li>Geração de Hipóteses: Com base no material fornecido, pode sugerir novas direções de pesquisa, questões correlatas e potenciais hipóteses a serem testadas.</li>
-                    <li>Assistência de Citação e Formatação: Auxilia na organização de referências e na estruturação de textos segundo normas acadêmicas.</li>
-                </ul>
-                <p><strong>Exemplos de Prompts Avançados:</strong></p>
-                <blockquote><code>"Analise criticamente o artigo [título/link], focando na validade da metodologia estatística empregada e sugira três possíveis críticas que uma banca examinadora poderia levantar."</code></blockquote>
-                <blockquote><code>"Com base na teoria de [autor/conceito], gere um resumo estruturado deste documento e proponha uma hipótese de pesquisa original que estenda suas conclusões."</code></blockquote>
-
-                <h3>3.2 Persona: Criação de Textos & Roteiros (Creative Writer & Scripter)</h3>
-                <p>Otimizada para a arte da escrita criativa e técnica, desde ficção até a elaboração de roteiros.</p>
-                <p><strong>Descrição:</strong> Uma ferramenta de parceria para escritores, roteiristas e criadores de conteúdo que buscam superar o bloqueio criativo e refinar sua arte.</p>
-                <p><strong>Capacidades Principais:</strong></p>
-                <ul>
-                    <li>Desenvolvimento de Narrativas: Auxilia na criação de arcos de personagens, estruturas de enredo (ex: Jornada do Herói), diálogos e descrições cênicas.</li>
-                    <li>Escrita Técnica e Copywriting: Gera textos para blogs, documentação técnica, e-mails de marketing e outros conteúdos, com foco em clareza, tom e engajamento.</li>
-                    <li>Análise e Refino de Estilo: Pode reescrever passagens para se adequarem a um tom específico (ex: formal, cômico, suspense) ou para melhorar a fluidez e o impacto do texto.</li>
-                </ul>
-                <p><strong>Exemplos de Prompts Avançados:</strong></p>
-                <blockquote><code>"Desenvolva uma cena de diálogo entre um detetive cético e uma testemunha enigmática. O subtexto da conversa deve revelar que a testemunha sabe mais do que aparenta, sem declará-lo explicitamente."</code></blockquote>
-                <blockquote><code>"Reescreva o seguinte parágrafo de um artigo técnico sobre [assunto] para um público leigo, utilizando analogias para explicar os conceitos complexos."</code></blockquote>
-
-                <h3>3.3 Persona: Composição Musical (Music Composer)</h3>
-                <p>Uma Persona dedicada à arte e à técnica da composição musical, focada principalmente em letras e estruturas.</p>
-                <p><strong>Descrição:</strong> Atua como um parceiro de composição para letristas, músicos e produtores, oferecendo tanto inspiração criativa quanto insights técnicos.</p>
-                <p><strong>Capacidades Principais:</strong></p>
-                <ul>
-                    <li>Geração e Desenvolvimento de Letras: Cria letras originais com base em temas, gêneros e estilos específicos. Auxilia na busca por rimas ricas, metáforas e no desenvolvimento da narrativa lírica.</li>
-                    <li>Análise e Sugestão Estrutural: Sugere estruturas de canções (verso, pré-refrão, refrão, ponte), progressões de acordes comuns em determinados gêneros e ideias para arranjos.</li>
-                    <li>Exploração de Conceitos e Temas: Ajuda a realizar brainstormings de conceitos para novas músicas, explorando diferentes ângulos e abordagens para um mesmo tema.</li>
-                </ul>
-                <p><strong>Exemplos de Prompts Avançados:</strong></p>
-                <blockquote><code>"Crie uma letra para uma canção de rock alternativo no estilo dos anos 90. O tema é a nostalgia e a perda da inocência. A estrutura deve ser: Verso 1, Refrão, Verso 2, Refrão, Ponte, Refrão Final com variação."</code></blockquote>
-                <blockquote><code>"Estou trabalhando com a progressão de acordes Am-G-C-F. Sugira uma linha melódica para o refrão e desenvolva um conceito lírico que combine com a sensação melancólica dessa harmonia."</code></blockquote>
-
-                <h2>4. Nexus Pro & Ultimate: Apoiando o Futuro da Plataforma</h2>
-                <p>O Nexus é um projeto independente, impulsionado pela paixão pela tecnologia e pelo apoio de nossa comunidade. Para garantir seu desenvolvimento contínuo e financiar a complexa jornada de treinar nosso próprio modelo de linguagem, oferecemos níveis de apoio através da plataforma Apoia.se.</p>
-                
-                <h3>4.1 Nível: Nexus Pro (R$ 15/mês)</h3>
-                <p>O nível Pro é projetado para usuários que buscam a máxima performance da plataforma.</p>
-                <ul>
-                    <li>Acesso ao Modelo Nexus Pro: Utilize nosso modelo mais avançado e criativo, ideal para tarefas que exigem maior profundidade e geração de conteúdo de alta qualidade.</li>
-                    <li>Suporte Prioritário: Seus feedbacks e solicitações de suporte são tratados com prioridade por nossa equipe.</li>
-                    <li>Impacto Direto: Sua contribuição mensal é fundamental para cobrir os custos operacionais (servidores, APIs) e nos permite dedicar mais tempo ao desenvolvimento.</li>
+                    <li><strong>Nexus Flash:</strong> Ideal para tarefas que demandam agilidade, como resumos e interações rápidas. É o modelo padrão, otimizado para um equilíbrio entre performance e velocidade de resposta.</li>
+                    <li><strong>Nexus Pro:</strong> Um modelo mais avançado e robusto, projetado para tarefas que exigem maior profundidade criativa, análise complexa e geração de conteúdo de alta qualidade. O acesso ao Nexus Pro é um dos benefícios concedidos aos nossos apoiadores.</li>
                 </ul>
 
-                <h3>4.2 Nível: Nexus Ultimate (R$ 50/mês)</h3>
-                <p>O nível Ultimate é para os apoiadores que desejam maximizar seu impacto e se tornar parceiros estratégicos no crescimento do Nexus.</p>
+                <hr />
+
+                <h2>Seção 3: Guia Detalhado das Personas</h2>
+                <p>Nesta seção, exploramos as capacidades de cada especialista. Os exemplos de prompts foram elaborados para inspirar e demonstrar a estruturação de solicitações para a obtenção de resultados ótimos.</p>
+
+                <h3>3.1 Categoria: Geral</h3>
+
+                <h4><strong>[🤖] Persona: Geral</strong></h4>
+                <p><strong>Descrição:</strong> Um assistente versátil e empático que adapta seu tom e abordagem de acordo com o contexto da conversa. Ideal para tarefas diversas do dia a dia.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Preciso organizar uma viagem para o Japão em março. Me ajude a criar um roteiro de 7 dias incluindo Tokyo, Kyoto e Osaka, considerando clima, custos estimados e principais atrações."</code></p>
+
+                <h4><strong>[🌐] Persona: Pesquisador</strong></h4>
+                <p><strong>Descrição:</strong> Um pesquisador acadêmico meticuloso que sintetiza informações de múltiplas fontes, apresenta diferentes perspectivas e indica o grau de consenso científico sobre tópicos.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Quais são as evidências científicas mais recentes sobre os benefícios da meditação para a saúde mental? Apresente estudos peer-reviewed e indique áreas onde ainda há debate."</code></p>
+
+                <hr />
+
+                <h3>3.2 Categoria: Criatividade</h3>
+
+                <h4><strong>[🧠] Persona: Criativo</strong></h4>
+                <p><strong>Descrição:</strong> Um diretor criativo visionário especializado em brainstorming. Usa técnicas como SCAMPER e pensamento lateral para gerar ideias que vão do prático ao revolucionário.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Preciso de 5 conceitos inovadores para uma campanha de marketing de tênis sustentáveis para a Geração Z. Inclua ideias práticas, ousadas e uma 'moonshot'."</code></p>
+
+                <h4><strong>[🎵] Persona: Letrista Geral</strong></h4>
+                <p><strong>Descrição:</strong> Um compositor e letrista premiado, especialista em múltiplos gêneros musicais. Cria letras usando técnicas de rima variadas, metáforas vívidas e considera métrica e flow.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Crie uma letra para uma música indie folk sobre superação após uma perda. Use metáforas relacionadas à natureza e estruture em 2 versos, refrão e ponte."</code></p>
+
+                <h4><strong>[🎤] Persona: Letrista Pop/Comercial</strong></h4>
+                <p><strong>Descrição:</strong> Um hitmaker especializado em música pop comercial. Foca em refrões pegajosos, estrutura clara e temas universais que grudam na cabeça.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Preciso de uma letra pop sobre amor de verão, com refrão extremamente pegajoso e memorável. Estrutura: Verso - Pré-refrão - Refrão - Ponte."</code></p>
+
+                <h4><strong>[🎤] Persona: Letrista Rap/Hip-Hop</strong></h4>
+                <p><strong>Descrição:</strong> Um MC veterano especialista em flow complexo, rimas multissilábicas, wordplay criativo e storytelling impactante.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Crie 16 bars sobre superação e ambição, usando rimas internas complexas, metáforas elaboradas e referências culturais. Estilo: conscious rap."</code></p>
+
+                <h4><strong>[🎼] Persona: Letrista MPB/Poético</strong></h4>
+                <p><strong>Descrição:</strong> Um poeta e compositor literário no estilo da MPB brasileira. Foca em poesia sofisticada, linguagem rica e temas introspectivos.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Crie uma letra no estilo de Chico Buarque sobre saudade e memória, usando sinestesia, personificação e explorando a beleza da língua portuguesa."</code></p>
+
+                <h4><strong>[✍️] Persona: Copywriter</strong></h4>
+                <p><strong>Descrição:</strong> Um copywriter premiado especializado em marketing digital. Cria textos persuasivos usando fórmulas comprovadas (AIDA, PAS) e gatilhos mentais.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Crie um copy de landing page para um curso online de fotografia. Inclua headline irresistível, 3 bullets de benefícios e CTA forte. Use gatilho de escassez."</code></p>
+
+                <hr />
+
+                <h3>3.3 Categoria: Técnico</h3>
+
+                <h4><strong>[💻] Persona: Programador</strong></h4>
+                <p><strong>Descrição:</strong> Um engenheiro de software sênior com 10+ anos de experiência. Fornece código limpo, explica decisões técnicas, menciona trade-offs e cita boas práticas (SOLID, DRY, KISS).</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Refatore este componente React para usar hooks personalizados, separar lógica de negócio da UI e melhorar a performance. Explique cada otimização aplicada."</code></p>
+
+                <h4><strong>[🔍] Persona: Revisor de Código</strong></h4>
+                <p><strong>Descrição:</strong> Um tech lead fazendo code review rigoroso. Analisa bugs, performance, segurança, manutenibilidade e testes. Usa emojis para categorizar feedback.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Revise este endpoint de API REST. Identifique vulnerabilidades de segurança, problemas de performance e sugira melhorias na estrutura do código."</code></p>
+
+                <h4><strong>[📊] Persona: Analista de Dados</strong></h4>
+                <p><strong>Descrição:</strong> Um cientista de dados experiente. Ajuda a interpretar dados, criar visualizações, identificar padrões e gerar insights acionáveis usando Python/R.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Analise este dataset de vendas (CSV anexo). Identifique tendências sazonais, produtos mais rentáveis e sugira 3 ações concretas para aumentar receita."</code></p>
+
+                <hr />
+
+                <h3>3.4 Categoria: Aprendizado</h3>
+
+                <h4><strong>[🎓] Persona: Professor (ELI5)</strong></h4>
+                <p><strong>Descrição:</strong> Um professor excepcional que domina o método ELI5 (Explain Like I'm 5). Explica conceitos complexos usando analogias do cotidiano e storytelling.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Explique como funciona a criptografia de ponta a ponta do WhatsApp como se eu tivesse 5 anos. Use uma analogia com caixas e chaves."</code></p>
+
+                <h4><strong>[⚖️] Persona: Advogado do Diabo</strong></h4>
+                <p><strong>Descrição:</strong> Um filósofo socrático e debatedor crítico. Identifica falácias lógicas, apresenta contrapontos e questiona premissas para fortalecer argumentos.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Meu argumento: 'Trabalho remoto aumenta produtividade'. Atue como Advogado do Diabo e apresente os 3 contrapontos mais fortes com evidências."</code></p>
+
+                <h4><strong>[🌍] Persona: Tradutor Contextual</strong></h4>
+                <p><strong>Descrição:</strong> Um tradutor profissional que preserva nuances, tom e contexto cultural. Adapta expressões idiomáticas e mantém o registro (formal/informal).</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Traduza este email corporativo de inglês para português brasileiro, mantendo o tom profissional mas não excessivamente formal. Adapte expressões idiomáticas."</code></p>
+
+                <hr />
+
+                <h3>3.5 Categoria: Desenvolvimento Pessoal</h3>
+
+                <h4><strong>[❤️] Persona: Coach de Vida</strong></h4>
+                <p><strong>Descrição:</strong> Um life coach certificado focado em desenvolvimento pessoal. Usa escuta ativa, perguntas reflexivas poderosas e ajuda a estabelecer metas SMART.</p>
+                <p><strong>⚠️ AVISO:</strong> Não substitui terapia profissional para questões de saúde mental sérias.</p>
+                <p><strong>Exemplo de Prompt:</strong><br />
+                <code>"Estou me sentindo perdido na carreira. Tenho 30 anos e trabalho em TI, mas não sinto realização. Me ajude a explorar o que realmente me motiva e criar um plano de ação."</code></p>
+
+                <hr />
+
+                <h2>Seção 4: O Futuro do Nexus e Como Participar</h2>
+                <p>O Nexus é um projeto em constante evolução, impulsionado por uma visão de longo prazo e pelo apoio de uma comunidade engajada. Saiba como você pode se tornar parte fundamental desta jornada.</p>
+
+                <h4><strong>4.1 A Missão: Rumo a um Modelo Próprio</strong></h4>
+                <p>Conforme detalhado em nosso roadmap, o objetivo final é desenvolver um modelo de linguagem proprietário para o Nexus, treinado especificamente com dados de alta qualidade para nossas áreas de especialização. O seu apoio através do <strong>Apoia.se</strong> financia esta ambiciosa missão, permitindo a dedicação de tempo e recursos para a curadoria de dados e o oneroso processo de treinamento.</p>
+
+                <h4><strong>4.2 Níveis de Apoio e Recompensas</strong></h4>
+                <p>Oferecemos diferentes formas de engajamento que concedem benefícios exclusivos em troca do seu apoio:</p>
+
+                <p><strong>Nexus Pro (R$ 15,00/mês)</strong></p>
+                <p>Este é o nível de apoio principal para utilizadores que desejam extrair o máximo da plataforma. Como apoiador Pro, você recebe:</p>
                 <ul>
-                    <li>Todos os Benefícios do Nexus Pro: Acesso irrestrito ao modelo Pro e suporte prioritário.</li>
-                    <li>Acesso Antecipado a Novos Recursos: Seja o primeiro a testar e dar feedback sobre novas Personas, funcionalidades e melhorias na plataforma antes do lançamento público.</li>
-                    <li>Impulsionando a Missão: Sua contribuição significativa acelera diretamente nossa capacidade de adquirir datasets de alta qualidade e investir em recursos computacionais para o treinamento do nosso modelo de linguagem proprietário. Você é um pilar central na construção do futuro do Nexus.</li>
+                    <li><strong>Acesso Ilimitado ao Modelo Nexus Pro:</strong> Utilize nosso modelo de linguagem mais avançado, ideal para tarefas complexas que exigem máxima criatividade e profundidade.</li>
+                    <li><strong>Uso Ilimitado:</strong> Sem limite de mensagens diárias.</li>
+                    <li><strong>Apoio Direto ao Desenvolvimento:</strong> Sua contribuição é diretamente revertida para os custos de manutenção e evolução do projeto.</li>
                 </ul>
 
-                <h2>5. Política de Transparência, Processamento de Dados e Aprimoramento de Modelo</h2>
-                <p><em>Data de Efetivação: 11 de Outubro de 2025</em></p>
-
-                <h3>5.1 Introdução e Escopo</h3>
-                <p>Esta política detalha os princípios operacionais, o processamento de dados e os termos de uso relativos à plataforma Nexus AI ("Nexus", "Plataforma", "Serviço"). Nosso compromisso fundamental é com a transparência total perante nossos usuários ("Usuário", "Você"). Ao utilizar os serviços do Nexus, você reconhece ter lido, compreendido e concordado com os termos aqui descritos.</p>
-
-                <h3>5.2 Arquitetura Tecnológica e Provisão do Serviço Atual</h3>
-                <p>Para assegurar um serviço de alta performance, estabilidade e qualidade superior desde sua concepção, a atual iteração da plataforma Nexus opera utilizando a infraestrutura e os modelos de linguagem fornecidos pela API do Google Gemini.</p>
-                <p>Esta é uma decisão estratégica que nos permite focar no desenvolvimento da experiência do usuário, na arquitetura da plataforma e, mais crucialmente, na curadoria dos datasets especializados que formarão a base de nosso futuro modelo proprietário. Consequentemente, as interações, prompts e solicitações enviadas por você à plataforma são processados pelos servidores do Google para a geração das respostas. O Nexus atua como a interface inteligente e a camada de aplicação que gerencia essa interação.</p>
-
-                <h3>5.3 Coleta e Utilização de Dados para o Desenvolvimento do Modelo Proprietário</h3>
-                <p>O objetivo primário e a missão de longo prazo da Nexus AI Corp. é o desenvolvimento de um modelo de linguagem proprietário, otimizado e especializado para os domínios de Pesquisa Acadêmica, Criação de Textos e Composição Musical. A concretização deste objetivo depende intrinsecamente da análise de um vasto volume de interações contextuais.</p>
-                <p><strong>Consentimento de Uso:</strong> Ao utilizar a plataforma Nexus, você concede consentimento explícito para que os dados de suas conversas (prompts e respostas geradas) sejam coletados, armazenados e utilizados para fins de pesquisa, desenvolvimento e treinamento dos algoritmos de inteligência artificial do Nexus.</p>
-                <p><strong>Finalidade da Coleta:</strong> Os dados coletados são utilizados estritamente para:</p>
+                <p><strong>Nexus Ultimate (R$ 50,00/mês)</strong></p>
+                <p>Para os membros mais dedicados da nossa comunidade que desejam maximizar seu impacto no futuro do Nexus. O nível Ultimate inclui todos os benefícios do Pro, com adicionais significativos:</p>
                 <ul>
-                    <li>Treinamento e Refinamento de Algoritmos: Aprimorar a capacidade do modelo em compreender, raciocinar e gerar conteúdo relevante e coerente.</li>
-                    <li>Mitigação de Vieses e Erros: Identificar, analisar e corrigir vieses sistêmicos e padrões de erro no comportamento do modelo.</li>
-                    <li>Aprimoramento das "Personas": Aumentar a especialização contextual de cada Persona, garantindo que sua performance exceda a de modelos generalistas.</li>
+                    <li><strong>Acesso a Todos os Benefícios Pro:</strong> Desfrute do modelo Nexus Pro e de todas as funcionalidades avançadas.</li>
+                    <li><strong>Acesso Prioritário a Novos Recursos:</strong> Seja o primeiro a testar novas Personas, funcionalidades e versões do modelo antes do lançamento público.</li>
+                    <li><strong>Suporte Prioritário:</strong> Suas dúvidas e solicitações são tratadas com prioridade máxima.</li>
+                    <li><strong>Impacto Ampliado na Missão:</strong> Sua contribuição acelera significativamente nosso roadmap, aproximando-nos do objetivo de um modelo de linguagem independente.</li>
+                </ul>
+                <p>Sua participação, em qualquer nível, é o que transforma o Nexus de um projeto em uma realidade em constante crescimento. Agradecemos por acreditar em nossa visão.</p>
+
+                <hr />
+
+                <h2>Seção 5: Dicas Avançadas de Uso</h2>
+
+                <h3>5.1 Como Escrever Prompts Eficazes</h3>
+                <ul>
+                    <li><strong>Seja específico:</strong> Em vez de "me ajude com código", diga "refatore este componente React para melhorar performance usando useMemo".</li>
+                    <li><strong>Forneça contexto:</strong> Quanto mais contexto você der, melhor a resposta. Inclua o objetivo final, restrições e preferências.</li>
+                    <li><strong>Use a Persona certa:</strong> Selecione a Persona especializada no domínio da sua tarefa para respostas mais precisas.</li>
+                    <li><strong>Itere:</strong> Faça perguntas de follow-up para refinar a resposta. O Nexus mantém o contexto da conversa.</li>
+                    <li><strong>Peça formatos específicos:</strong> "Liste em bullets", "Explique passo a passo", "Crie uma tabela comparativa".</li>
                 </ul>
 
-                <h3>5.4 Compromisso com a Privacidade e Anonimização de Dados</h3>
-                <p>A privacidade de nossos usuários é um pilar não negociável de nossa operação. Embora utilizemos os dados das conversas para treinamento, implementamos protocolos rigorosos para proteger a identidade dos usuários.</p>
-                <p><strong>Processo de Anonimização:</strong> Antes de serem incorporados a qualquer dataset de treinamento, os dados passam por um processo de anonimização. Este processo visa remover ou dissociar quaisquer Informações de Identificação Pessoal (PII - Personally Identifiable Information), como nomes, endereços de e-mail, números de telefone ou outros dados sensíveis que possam ter sido inseridos durante uma conversa. Nosso foco analítico reside nos padrões linguísticos e estruturais da conversa, não na identidade de quem a gerou.</p>
-                <p>O Nexus não compartilha dados brutos de conversas com terceiros, exceto conforme necessário para a provisão do serviço através da API do Google Gemini, sujeito às políticas de privacidade do Google.</p>
+                <h3>5.2 Atalhos de Teclado</h3>
+                <ul>
+                    <li><strong>Ctrl + K:</strong> Focar na barra de pesquisa de conversas</li>
+                    <li><strong>Ctrl + N:</strong> Nova conversa</li>
+                    <li><strong>Ctrl + P:</strong> Abrir perfil</li>
+                    <li><strong>Enter:</strong> Enviar mensagem</li>
+                    <li><strong>Shift + Enter:</strong> Nova linha na mensagem</li>
+                </ul>
 
-                <h2>6. Contato e Suporte Técnico</h2>
+                <hr />
+
+                <h2>Seção 6: Contato e Suporte Técnico</h2>
                 <p>Nosso compromisso é oferecer uma plataforma robusta e uma experiência de usuário excepcional. Se você encontrar qualquer problema técnico, tiver dúvidas que não foram respondidas nesta documentação, ou desejar fornecer feedback e sugestões para futuras versões do Nexus, nossa equipe está disponível para ajudar.</p>
                 
                 <h3>6.1 Canal de Comunicação Oficial</h3>
